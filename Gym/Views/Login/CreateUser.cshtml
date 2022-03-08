@@ -1,10 +1,10 @@
 ﻿@model Gym.Models.User
 
-<h4>Please, log in:</h4>
+<h4>Create an account here:</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="ProcessLogin">
+        <form asp-action="ProcessUserCreation">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Login" class="control-label"></label>
@@ -17,11 +17,13 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
-        <span>Don't have an account yet? <a asp-controller="Login" asp-action="CreateUser">Create</a> one</span>
     </div>
 </div>
 
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
