@@ -1,13 +1,12 @@
-﻿using Gym.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
-namespace Gym.DAL
+namespace DAL.DAL
 {
     public class UserContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<UserDAL> Users { get; set; }
 
         public UserContext()
         {

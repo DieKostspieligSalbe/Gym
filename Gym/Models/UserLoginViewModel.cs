@@ -4,10 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Gym.Models
 {
-    public class User
+    public class UserLoginViewModel
     {
-        [Required]
-        public int Id { get; set; }
         [Required]
         [StringLength(20, MinimumLength = 3)]
         [Remote(action: "CheckUserLogin", controller: "Login", ErrorMessage = "That login already exists")]

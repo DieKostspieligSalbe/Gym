@@ -1,12 +1,12 @@
-﻿using Gym.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Gym.DAL
+
+namespace DAL.DAL
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : IRepository<UserDAL>
     {
         private UserContext context;
         private bool disposed = false;
@@ -16,33 +16,33 @@ namespace Gym.DAL
             this.context = context;
         }
 
-        public void Delete(int id)
+        public void Delete(UserDAL user)
         {
-            User user = context.Users.FirstOrDefault(x => x.Id == id);
+            UserDAL currentUser = context.Users.FirstOrDefault(x => x.Login == user.Login);
             context.Users.Remove(user);
         }
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<UserDAL> GetAll()
         {
             return context.Users.ToList();
         }
 
-        public User GetByID(int id)
+        public UserDAL GetByID(int id)
         {
             return context.Users.FirstOrDefault(x => x.Id == id);
         }
 
-        public User GetByLoginPassword(User user)
+        public UserDAL GetByLoginPassword(UserDAL user)
         {
             return context.Users.FirstOrDefault(u => u.Login == user.Login && u.Password == user.Password);
         }
 
-        public User GetByLogin(string login)
+        public UserDAL GetByLogin(string login)
         {
             return context.Users.FirstOrDefault(u => u.Login == login);
         }
 
-        public void Insert(User user)
+        public void Insert(UserDAL user)
         {
             context.Users.Add(user);
         }
@@ -52,7 +52,7 @@ namespace Gym.DAL
             context.SaveChanges();
         }
 
-        public void Update(User user)
+        public void Update(UserDAL user)
         {
             context.Entry(user).State = EntityState.Modified;
         }
@@ -77,8 +77,8 @@ namespace Gym.DAL
 
         public void FillDatabaseWithUsers()
         {
-            context.Users.Add(new User() { Login = "Admin", Password = "Password" });
-            context.Users.Add(new User() { Login = "User", Password = "Pass" });
+            context.Users.Add(new UserDAL() { Login = "Admin", Password = "Password" });
+            context.Users.Add(new UserDAL() { Login = "User", Password = "Pass" });
             context.SaveChanges();
         }
     }

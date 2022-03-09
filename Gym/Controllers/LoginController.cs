@@ -6,20 +6,22 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Gym.DAL;
 using Microsoft.AspNetCore.Authorization;
+using DAL.DAL;
 
 namespace Gym.Controllers
 {
+    [Route("[controller]")]
     public class LoginController : Controller
     {
         private UserRepository userRepository;
-
         public LoginController()
         {
             this.userRepository = new UserRepository(new UserContext());
             //userRepository.FillDatabaseWithUsers();
         }
+
+        [Route("Index")]
         [HttpGet]
         public IActionResult Index() //page where you login
         {
@@ -27,11 +29,17 @@ namespace Gym.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProcessLogin([FromForm] User user)
+        public async Task<IActionResult> ProcessLogin([FromForm] UserLoginViewModel user)
         {
             if (ModelState.IsValid)
             {
-                User foundUser = userRepository.GetByLoginPassword(user);
+                UserDAL newUser = new UserDAL 
+                { 
+                    Login = user.Login,
+                    Password = user.Password
+                };
+
+                UserDAL foundUser = userRepository.GetByLoginPassword(newUser);
                 if (foundUser != null)
                 {
                     await Authenticate(user.Login);
@@ -42,36 +50,49 @@ namespace Gym.Controllers
             return View("FailedAuth");          
         }
 
+        [Route("CreateUser")]
         public IActionResult CreateUser()
         {
             return View();
         }
 
-        public IActionResult ProcessUserCreation([FromForm] User user)
+        public IActionResult ProcessUserCreation([FromForm] UserLoginViewModel user)
         {
-            userRepository.Insert(user);
+            UserDAL newUser = new UserDAL
+            {
+                Login = user.Login,
+                Password = user.Password
+            };
+            userRepository.Insert(newUser);
             userRepository.Save();
             return RedirectToAction("UserList");
         }
 
         [Authorize]
         [HttpGet]
-        public IActionResult UserList(User user)
+        [Route("UserList")]
+        public IActionResult UserList(UserLoginViewModel user)
         {
             ViewBag.UserName = user.Login;
             return View(userRepository.GetAll());
         }
 
-        public IActionResult Delete(int id)
+        [Route("Delete")]
+        public IActionResult Delete(UserLoginViewModel user)
         {
-            userRepository.Delete(id);
+            UserDAL newUser = new UserDAL
+            {
+                Login = user.Login,
+                Password = user.Password
+            };
+            userRepository.Delete(newUser);
             userRepository.Save();
             return RedirectToAction("UserList");
         }
 
         public IActionResult CheckUserLogin(string login)
         {
-            User foundUser = userRepository.GetByLogin(login);
+            UserDAL foundUser = userRepository.GetByLogin(login);
             if (foundUser != null)
             {
                 return Json(false);
