@@ -32,7 +32,15 @@
         </ul>
         <ul class="header__links--auth-links">
           <li>
-          <a asp-controller="Login" asp-action="Index">Log In</a>
+              @if (Context.User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="Login" asp-action="Index">My account</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Login" asp-action="Index">Log In</a>
+                    }
+                    
           </li>
         </ul>
       </nav>

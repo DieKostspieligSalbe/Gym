@@ -1,5 +1,6 @@
-﻿@model IEnumerable<Gym.Models.User>
+﻿@model IEnumerable<DAL.DAL.UserDAL>
 
+<h1>Hi, @Context.User.Identity.Name</h1>
 <table class="table">
     <thead>
         <tr>
@@ -22,7 +23,7 @@
                 @Html.DisplayFor(modelItem => item.Password)
             </td>
             <td>
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.Login">Delete</a>
             </td>
         </tr>
 }
