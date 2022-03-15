@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using DAL.DAL;
+using AutoMapper;
 
 namespace Gym.Controllers
 {
@@ -15,9 +16,13 @@ namespace Gym.Controllers
     public class LoginController : Controller
     {
         private UserRepository userRepository;
-        public LoginController()
+        private UserContext userContext;
+        private readonly IMapper mapper;
+        public LoginController(UserContext context, IMapper mapper)
         {
-            this.userRepository = new UserRepository(new UserContext());
+            userContext = context;
+            userRepository = new UserRepository(userContext);
+            this.mapper = mapper;
             //userRepository.FillDatabaseWithUsers();
         }
 
@@ -33,39 +38,39 @@ namespace Gym.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserDAL newUser = new UserDAL 
-                { 
-                    Login = user.Login,
-                    Password = user.Password
-                };
+                //UserDAL newUser = new UserDAL 
+                //{ 
+                //    Login = user.Login,
+                //    Password = user.Password
+                //};
+                var userDAL = mapper.Map<UserDAL>(user);
 
-                UserDAL foundUser = userRepository.GetByLoginPassword(newUser);
+                UserDAL foundUser = userRepository.GetByLoginPassword(userDAL);
                 if (foundUser != null)
                 {
-                    await Authenticate(user.Login);
-                    return RedirectToAction("UserList", user);  //will lead to personal training plans
+                    await Authenticate(userDAL.Login);
+                    return RedirectToAction("UserList", mapper.Map<UserLoginViewModel>(userDAL));  //will lead to personal training plans
                 }
                 ModelState.AddModelError("", "Incorrect login or password");
             }
             return View("FailedAuth");          
         }
 
+        [HttpGet]
         [Route("CreateUser")]
         public IActionResult CreateUser()
         {
             return View();
         }
 
+        [HttpPost]
+        [Route("ProcessUserCreation")]
         public IActionResult ProcessUserCreation([FromForm] UserLoginViewModel user)
-        {
-            UserDAL newUser = new UserDAL
-            {
-                Login = user.Login,
-                Password = user.Password
-            };
-            userRepository.Insert(newUser);
+        {       
+            var userDAL = mapper.Map<UserDAL>(user);
+            userRepository.Insert(userDAL);
             userRepository.Save();
-            return RedirectToAction("UserList");
+            return RedirectToAction("Index");
         }
 
         [Authorize]
@@ -77,15 +82,12 @@ namespace Gym.Controllers
             return View(userRepository.GetAll());
         }
 
+        [HttpPost]
         [Route("Delete")]
         public IActionResult Delete(UserLoginViewModel user)
         {
-            UserDAL newUser = new UserDAL
-            {
-                Login = user.Login,
-                Password = user.Password
-            };
-            userRepository.Delete(newUser);
+            var userDAL = mapper.Map<UserDAL>(user);
+            userRepository.Delete(userDAL);
             userRepository.Save();
             return RedirectToAction("UserList");
         }
