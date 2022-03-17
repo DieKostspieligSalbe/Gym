@@ -35,7 +35,7 @@ namespace Gym
             services.AddControllersWithViews();
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<UserContext>(options =>
+            services.AddDbContext<GeneralContext>(options =>
                 options.UseSqlServer(connection));
             services.AddAutoMapper(typeof(Startup));
         }
