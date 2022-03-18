@@ -17,9 +17,12 @@ namespace DAL.DAL
 
         public List<ExerciseDAL> PrimaryExList { get; set; } = new();
         public List<ExerciseDAL> SecondaryExList { get; set; } = new();
-        public List<MachineDAL> PrimaryMachineList { get; set; } = new();
-        public List<MachineDAL> SecondaryMachineList { get; set; } = new();
+        public List<EquipDAL> PrimaryMachineList { get; set; } = new();
+        public List<EquipDAL> SecondaryMachineList { get; set; } = new();
         public List<TrainingProgramDAL> InvolvedInPrograms { get; set; } = new();
+
+        public string ImageLink { get; set; }
+        public string Description { get; set; }
     }
 
 

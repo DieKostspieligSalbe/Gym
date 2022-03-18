@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DAL.DAL
 {
-    public class MachineDAL
+    public class EquipDAL
     {
         [Required]
         public int Id { get; set; }
@@ -13,6 +13,9 @@ namespace DAL.DAL
         public List<MuscleDAL> PrimaryMusclesList { get; set; } = new();
         public List<MuscleDAL> SecondaryMusclesList { get; set; } = new();
         public List<ExerciseDAL> ExercisesList { get; set; } = new();
+
+        public string ImageLink { get; set; }
+        public string Description { get; set; }
 
         public int Effectiveness { get; set; }
 
