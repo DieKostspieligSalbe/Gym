@@ -14,6 +14,11 @@ namespace DAL.DAL
         {
             _context = context;
         }
+        //ask:
+        //if i should add descr straight as a string or somehow via local document
+        //if i should use image hosting or having pics locally
+
+        //consider making lists for relates muscle groups to populate them more easily
 
         public void FillDatabase() //doesn't include image links and description
         {
@@ -49,6 +54,22 @@ namespace DAL.DAL
             _context.Muscles.AddRange(neck, trap, frontDelt, sideDelt, rearDelt, infraspin, lats, lowBack, obliques, abs, pecs, heart);
             _context.Muscles.AddRange(biceps, triceps, forearm, glute, quad, hamstring, adductor, abductor, calves);
             _context.SaveChanges();
+
+
+            //define equip
+            EquipDAL barbell = new() { Name = "Barbell", EquipmentType = EquipType.ActiveItem};
+            EquipDAL dumbbell = new() { Name = "Dumbbell", EquipmentType = EquipType.ActiveItem};
+            EquipDAL kettlebell = new() { Name = "Kettlebell", EquipmentType = EquipType.ActiveItem }; //consider if it is needed
+            EquipDAL bench = new() { Name = "Bench", EquipmentType = EquipType.StationaryItem };
+            EquipDAL romanBench = new() { Name = "Roman Bench", EquipmentType = EquipType.StationaryItem };
+            EquipDAL landmine = new() { Name = "Landmine", EquipmentType = EquipType.Machine };
+            EquipDAL bar = new() { Name = "Bar", EquipmentType = EquipType.ActiveItem };
+            EquipDAL mat = new() { Name = "Mat", EquipmentType = EquipType.StationaryItem };
+            EquipDAL ball = new() { Name = "Ball", EquipmentType = EquipType.ActiveItem }; //consider
+            EquipDAL elasticBand = new() { Name = "Elastic Band", EquipmentType = EquipType.ActiveItem }; //consider
+
+
+
 
 
         }

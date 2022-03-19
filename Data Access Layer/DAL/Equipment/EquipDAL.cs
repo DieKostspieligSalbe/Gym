@@ -17,7 +17,8 @@ namespace DAL.DAL
         public string ImageLink { get; set; }
         public string Description { get; set; }
 
-        public int Effectiveness { get; set; }
+        public EquipType EquipmentType { get; set; }
+
 
     }
 
