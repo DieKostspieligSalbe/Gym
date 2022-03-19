@@ -12,8 +12,8 @@ namespace DAL.DAL
         Trap = 6,
         Lats = 7,
         LowBack = 8,
-        Bicep = 9,
-        Tricep = 10,
+        Biceps = 9,
+        Triceps = 10,
         Forearm = 11,
         Pectoral = 12,
         Abs = 13,
@@ -23,7 +23,7 @@ namespace DAL.DAL
         Hamstring = 17,
         Abductor = 18,
         Adductor = 19,
-        Calve = 20,
+        Calves = 20,
         Heart = 21
     }
 

@@ -21,7 +21,7 @@ namespace DAL.DAL
         public DbSet<TrainingProgramDAL> TrainingPrograms { get; set; }
         public DbSet<MuscleDAL> Muscles { get; set; }
         public DbSet<ExerciseDAL> Exercises { get; set; }
-        public DbSet<MachineDAL> Machines { get; set; }
+        public DbSet<EquipDAL> Equipment { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
