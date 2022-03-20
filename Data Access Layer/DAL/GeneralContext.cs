@@ -33,7 +33,7 @@ namespace DAL.DAL
             optionsBuilder.LogTo(message => System.Diagnostics.Debug.WriteLine(message), Microsoft.Extensions.Logging.LogLevel.Information);
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder) //add here mediator table names
         {
             modelBuilder.Entity<UserDAL>()
                 .HasMany(u => u.ProgramList)

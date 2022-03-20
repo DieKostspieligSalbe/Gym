@@ -1,3 +1,7 @@
+* {
+    transition: all cubic-bezier(.78,.14,.15,.85) .15s;
+}
+
 .muscles {
     display:flex;
     justify-content: space-around;
@@ -7,6 +11,9 @@
     margin: 0;
 }
 
-.svg_wrapper:hover .Calves:hover path {
+.muscle--hover {
     fill: red;
 }
+/*.Calves:hover path {
+    fill: red;
+}*/
