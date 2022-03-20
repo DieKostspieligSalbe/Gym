@@ -14,6 +14,8 @@
 .muscle--hover {
     fill: red;
 }
-/*.Calves:hover path {
-    fill: red;
-}*/
+
+.muscle--open {
+    fill:red;
+}
+
