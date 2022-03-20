@@ -1,0 +1,12 @@
+.muscles {
+    display:flex;
+    justify-content: space-around;
+}
+
+.svg_wrapper {
+    margin: 0;
+}
+
+.svg_wrapper:hover .Calves:hover path {
+    fill: red;
+}

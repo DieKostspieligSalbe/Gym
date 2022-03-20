@@ -7,8 +7,11 @@
     <div class="home_vertical_left">
         <div class="muscle_buttons">
             <span>Select the muscles you want to buff:</span>
-            <img class="muscle_img" src="https://img.favpng.com/19/4/16/sartorius-muscle-muscular-system-human-body-skeletal-muscle-png-favpng-XmPpapmq8tBqf6AYYmrmSH27x.jpg" alt="muscles"/>
-            <!--this will turn into a set of buttons clicking on which a user would be able to select muscles-->
+            <div class="muscles">
+             @Html.Raw(System.IO.File.ReadAllText("wwwroot/html/Human_front.svg"))
+             @Html.Raw(System.IO.File.ReadAllText("wwwroot/html/Human_back.svg")) 
+             </div>
+            <!--add onHover and pop-up windows with descr to those above-->
         </div>
         <div class="selected_muscles">
             <span>Selected muscles:</span>

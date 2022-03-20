@@ -59,11 +59,11 @@ namespace DAL.DAL
                 .HasMany(e => e.MachineList)
                 .WithMany(m => m.ExercisesList);
 
-            modelBuilder.Entity<MachineDAL>()
+            modelBuilder.Entity<EquipDAL>()
                 .HasMany(m => m.PrimaryMusclesList)
                 .WithMany(m => m.PrimaryMachineList);
 
-            modelBuilder.Entity<MachineDAL>()
+            modelBuilder.Entity<EquipDAL>()
                 .HasMany(m => m.SecondaryMusclesList)
                 .WithMany(m => m.SecondaryMachineList);
 
