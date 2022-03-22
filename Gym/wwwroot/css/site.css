@@ -102,6 +102,28 @@ body {
     flex-wrap:wrap;
 }
 
+.week-days {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.week-days .day-container {
+    background-color: gainsboro;
+    border: 1px black solid;
+    height: 200%;
+} 
+
+.week-days .holiday-container {
+    background-color: mistyrose;
+    border: 1px black solid;
+    height: 200%;
+
+}
+
+.day {
+    font-size: 15px;
+}
 
 
 

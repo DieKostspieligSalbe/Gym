@@ -1,7 +1,8 @@
-﻿
+﻿@using DAL.DAL
 @{
     ViewData["Title"] = "Home Page";
 }
+
 
 
 
@@ -10,18 +11,16 @@
         <div class="muscle_buttons">
             <span>Select the muscles you want to buff:</span>
             <div id="body_wrapper" class="muscles">
-             @Html.Partial("Human_front")
-             @Html.Partial("Human_back")
-            <!--- Html.Raw(System.IO.File.ReadAllText("wwwroot/html/Human_front.svg"))
-             Html.Raw(System.IO.File.ReadAllText("wwwroot/html/Human_back.svg")) -->
+             @await Html.PartialAsync("Human_front")
+             @await Html.PartialAsync("Human_back")
             <!--add onHover and pop-up windows with descr to those above-->
+            </div>
         </div>
-        <div id="selected_muscles" class="selected_muscles">
+        <div>
             <span>Selected muscles:</span>
-            @{
-                //here will be an injection which displays indicators for all muscles selected}
-             }
-             @Html.Partial("SelectedMuscles")             
+            <div id="selected_muscles" class="selected_muscles">           
+               @await Html.PartialAsync("SelectedMuscles")             
+            </div>
         </div>
     </div>
 
@@ -33,12 +32,33 @@
                 <button>Lazy</button>
                 <button>Some efforts</button>
                 <button>Gym bro</button>
-                <button>Monster</button>
             </form>
         </div>
         <div class="week">
             <span>Your weekly training plan:</span>
-            <img src="https://i5.walmartimages.com/asr/46e0bf6a-4e36-4aa0-bbff-c9afdeb94373.4821d21524a4320baa888891866710d7.jpeg" alt=""/>
+            <div class="week-days">
+                <div class="day-container">
+                    <span class="day">Monday</span>
+                </div>
+                 <div class="day-container">
+                    <span class="day">Tuesday</span>
+                </div>
+                 <div class="day-container">
+                    <span class="day">Wednesday</span>
+                </div>
+                 <div class="day-container">
+                    <span class="day">Thursday</span>
+                </div>
+                 <div class="day-container">
+                    <span class="day">Friday</span>
+                </div>
+                 <div class="day-container holiday-container">
+                    <span class="day">Saturday</span>
+                </div>
+                 <div class="day-container holiday-container">
+                    <span class="day">Sunday</span>
+                </div>
+            </div>
         </div>
         <div class="training_options">
             <span>Training program options:</span>

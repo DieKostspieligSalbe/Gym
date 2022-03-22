@@ -4,7 +4,10 @@
 {
     @foreach (var item in Model) 
       {
-        <button>@item.Name</button>
+        if (item is not null)
+        {
+            <button>@item.Name</button>   
+        }             
       }
 }
 

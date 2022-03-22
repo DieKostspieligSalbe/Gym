@@ -21,6 +21,7 @@ namespace Gym.Controllers
             _logger = logger;
         }
         [HttpGet]
+
         public IActionResult Index()
         {
             return View(); //will be the main page with muscle layout perhaps
@@ -35,6 +36,10 @@ namespace Gym.Controllers
             if (selectedMuscle is null)
             {
                 SelectedMuscleStorage.muscleList.Add(sentMuscle);
+            }
+            else
+            {
+                SelectedMuscleStorage.muscleList.Remove(sentMuscle);
             }
             return PartialView("SelectedMuscles", SelectedMuscleStorage.muscleList);
         }
