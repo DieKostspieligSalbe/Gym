@@ -1,0 +1,10 @@
+﻿@model IEnumerable<DAL.DAL.MuscleDAL>
+
+@if (Model is not null)
+{
+    @foreach (var item in Model) 
+      {
+        <button>@item.Name</button>
+      }
+}
+

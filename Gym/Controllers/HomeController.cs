@@ -1,4 +1,6 @@
-﻿using Gym.Models;
+﻿using DAL.DAL;
+using Gym.Models;
+using Gym.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -23,6 +25,27 @@ namespace Gym.Controllers
         {
             return View(); //will be the main page with muscle layout perhaps
         }
+
+        [HttpGet]
+        [Route("ProcessMuscleClick")]
+        public IActionResult ProcessMuscleClick(int id)
+        {
+            var sentMuscle = MuscleStorage.muscleList.FirstOrDefault(x => x.MuscleType == (MuscleType)id);
+            var selectedMuscle = SelectedMuscleStorage.muscleList.FirstOrDefault(x => x == sentMuscle);
+            if (selectedMuscle is null)
+            {
+                SelectedMuscleStorage.muscleList.Add(sentMuscle);
+            }
+            return PartialView("SelectedMuscles", SelectedMuscleStorage.muscleList);
+        }
+
+        [Route("TestClick")]
+        public IActionResult TestClick()
+        {
+            return Ok();
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

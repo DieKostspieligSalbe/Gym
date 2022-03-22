@@ -8,13 +8,45 @@ const bodyWrapper = document.getElementById("body_wrapper")
 const handleMuscleActivation = (e) => {
     const hovMuscle = e.target.parentNode
     const hovMuscleInstances = document.querySelectorAll(`[data-muscle=${hovMuscle.dataset.muscle}] path`)
-    console.log(hovMuscleInstances)
     Array.from(hovMuscleInstances).forEach(muscle => muscle.classList.toggle(e.type === 'mousedown' ? 'muscle--open' : 'muscle--hover'))
 }
 
 bodyWrapper.addEventListener('mouseover', handleMuscleActivation)
 bodyWrapper.addEventListener('mouseout', handleMuscleActivation)
 bodyWrapper.addEventListener('mousedown', handleMuscleActivation)
+
+
+
+
+$(function () {
+    const bodyWrapper = document.getElementById("body_wrapper")
+    
+    const handleMuscleMouseDown = (e) => {
+        console.log(e.target);
+        $.ajax({
+            type: "GET",
+            url: "/home/processmuscleclick",
+            data: { Id: e.target.parentNode.dataset.muscleId},
+            success: function (data) {
+                console.log(data);
+                document.getElementById("selected_muscles").innerHTML = data
+            }
+        });
+
+    }
+    bodyWrapper.addEventListener('mousedown', handleMuscleMouseDown)
+
+
+   /* $(".muscle-clicked").click(function () {
+        event.preventDefault();
+        console.log("Click-muscle class was clicked");*/
+
+
+
+       
+    });
+
+
 
 //const handleMuscleHover = (e) => {
 

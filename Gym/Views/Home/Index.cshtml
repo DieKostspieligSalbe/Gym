@@ -1,6 +1,8 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Home Page";
 }
+
 
 
 <div class="home_main_container">
@@ -8,21 +10,18 @@
         <div class="muscle_buttons">
             <span>Select the muscles you want to buff:</span>
             <div id="body_wrapper" class="muscles">
-             @Html.Raw(System.IO.File.ReadAllText("wwwroot/html/Human_front.svg"))
-             @Html.Raw(System.IO.File.ReadAllText("wwwroot/html/Human_back.svg")) 
-             </div>
+             @Html.Partial("Human_front")
+             @Html.Partial("Human_back")
+            <!--- Html.Raw(System.IO.File.ReadAllText("wwwroot/html/Human_front.svg"))
+             Html.Raw(System.IO.File.ReadAllText("wwwroot/html/Human_back.svg")) -->
             <!--add onHover and pop-up windows with descr to those above-->
         </div>
-        <div class="selected_muscles">
+        <div id="selected_muscles" class="selected_muscles">
             <span>Selected muscles:</span>
             @{
                 //here will be an injection which displays indicators for all muscles selected}
              }
-             <form>
-                 <button>Pect</button>
-                 <button>Latissimus dorsi</button>
-                 <button>Side Delt</button>
-             </form>
+             @Html.Partial("SelectedMuscles")             
         </div>
     </div>
 
