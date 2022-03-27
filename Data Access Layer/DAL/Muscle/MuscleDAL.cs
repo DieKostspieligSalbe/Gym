@@ -22,6 +22,7 @@ namespace DAL.DAL
         public List<TrainingProgramDAL> InvolvedInPrograms { get; set; } = new();
 
         public string ImageLink { get; set; }
+        [StringLength(2000)]
         public string Description { get; set; }
     }
 

@@ -6,11 +6,15 @@ html,
 body {
     height: 100%;
 }
+a {
+    color: white !important;
+}
 
 body {
     margin: 0;
     overflow-x: hidden;
     width: 100%;
+    /*padding: 0 5%;*/
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -123,6 +127,34 @@ body {
 
 .day {
     font-size: 15px;
+}
+
+.selected_muscles {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.selected-div {
+    background-color: red;
+    color: white;
+    border: hidden;
+    border-radius: 25px;
+    margin-right: 10px;
+    margin-top: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    font-size: 20px;
+}
+
+.close {
+    color: white;
+    cursor: pointer;
+    margin-left: 15px;
+    padding-right: 8px;
+    padding-top: 2px;
 }
 
 

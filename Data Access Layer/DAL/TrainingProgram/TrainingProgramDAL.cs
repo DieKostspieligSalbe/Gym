@@ -17,6 +17,7 @@ namespace DAL.DAL
 
         public int Intensity { get; set; }
         public bool IsPublic { get; set; }
+        public string Creator { get; set; }
 
     }
 
