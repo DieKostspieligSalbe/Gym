@@ -116,16 +116,122 @@ namespace DAL.DAL
 
 
             //define equip
-            EquipDAL barbell = new() { Name = "Barbell", EquipmentType = EquipType.ActiveItem};
-            EquipDAL dumbbell = new() { Name = "Dumbbell", EquipmentType = EquipType.ActiveItem};
-            EquipDAL kettlebell = new() { Name = "Kettlebell", EquipmentType = EquipType.ActiveItem }; //consider if it is needed
-            EquipDAL bench = new() { Name = "Bench", EquipmentType = EquipType.StationaryItem };
-            EquipDAL romanBench = new() { Name = "Roman Bench", EquipmentType = EquipType.StationaryItem };
-            EquipDAL landmine = new() { Name = "Landmine", EquipmentType = EquipType.Machine };
-            EquipDAL bar = new() { Name = "Bar", EquipmentType = EquipType.ActiveItem };
-            EquipDAL mat = new() { Name = "Mat", EquipmentType = EquipType.StationaryItem };
-            EquipDAL ball = new() { Name = "Ball", EquipmentType = EquipType.ActiveItem }; //consider
-            EquipDAL elasticBand = new() { Name = "Elastic Band", EquipmentType = EquipType.ActiveItem }; //consider
+            EquipDAL barbell = new() { Name = "Barbell", EquipmentType = EquipType.ActiveItem, IsEssential = true};
+            barbell.ImageLink = "https://i.ibb.co/B3qy0Wg/barbell-true.png";
+            barbell.Description = "A barbell is a long metal bar to which discs of varying weights are attached at each end, used for weightlifting.";
+
+            EquipDAL weightPlate = new() { Name = "Weight Disc", EquipmentType = EquipType.ActiveItem, IsEssential = false};
+            weightPlate.ImageLink = "https://i.ibb.co/175Tk4g/barbell.jpg";
+            weightPlate.Description = "Weight plates are a type of weight lifting equipment used to add resistance to adjustable barbells and dumbbells, as well as plate-loaded weight machines.";
+
+            EquipDAL dumbbell = new() { Name = "Dumbbell", EquipmentType = EquipType.ActiveItem, IsEssential = true};
+            dumbbell.ImageLink = "https://i.ibb.co/ScHCyrw/dumbbell.png";
+            dumbbell.Description = "A dumbbell is a short bar with a weight at each end, used typically in pairs for exercise or muscle-building.";
+
+            EquipDAL kettlebell = new() { Name = "Kettlebell", EquipmentType = EquipType.ActiveItem, IsEssential = false}; //consider if it is needed
+            kettlebell.ImageLink = "https://i.ibb.co/wh0P14K/Kettlebell.png";
+            kettlebell.Description = "A kettlebell is a type of dumbbell or free weight that is round with a flat base and an arced handle. Unlike dumbbells, only one kettlebell is usually used for exercise";
+
+            EquipDAL bench = new() { Name = "Bench", EquipmentType = EquipType.StationaryItem, IsEssential = true};
+            bench.ImageLink = "https://i.ibb.co/BzGCVMK/bench.png";
+            bench.Description = "Weight benches are versatile pieces of workout equipment that can support a wide array of workouts.";
+
+            EquipDAL romanBench = new() { Name = "Roman Chair", EquipmentType = EquipType.StationaryItem, IsEssential = false};
+            romanBench.ImageLink = "https://i.ibb.co/M733My9/roman-bench.png";
+            romanBench.Description = "The Roman chair is a piece of fitness equipment primarily designed to build endurance in your lower back.";
+
+            EquipDAL landmine = new() { Name = "Landmine", EquipmentType = EquipType.Machine, IsEssential = false};
+            landmine.ImageLink = "https://i.ibb.co/YDF450f/landmine.png";
+            landmine.Description = "A landmine is a barbell anchored to the floor with a weight on the other end. The angle of the bar allows you to apply force vertically and horizontally.";
+
+            EquipDAL bar = new() { Name = "Bar", EquipmentType = EquipType.ActiveItem, IsEssential = false};
+            bar.ImageLink = "https://i.ibb.co/X2LdJnB/bar.png";
+            bar.Description = "A bar is a rod of various weights and shapes, can be used by itself as well as with weight plates attached.";
+
+            EquipDAL mat = new() { Name = "Mat", EquipmentType = EquipType.StationaryItem, IsEssential = false};
+            mat.ImageLink = "https://i.ibb.co/JFMSykg/mat.png";
+            mat.Description = "Gym mats protect the subfloor, provide safe footing and protection from impact injury.";
+
+            EquipDAL ball = new() { Name = "Ball", EquipmentType = EquipType.ActiveItem, IsEssential = false}; //consider
+            ball.ImageLink = "https://i.ibb.co/m6QP80z/ball.png";
+            ball.Description = "Exercise balls - also known as physioballs, Swiss balls, or fit balls -- are large, vinyl balls you can use to strengthen and stretch your body, improving core stability and balance.";
+
+            EquipDAL elasticBand = new() { Name = "Resistance Band", EquipmentType = EquipType.ActiveItem, IsEssential = false}; //consider
+            elasticBand.ImageLink = "https://i.ibb.co/LnpGGkZ/rubber-band.png";
+            elasticBand.Description = "Resistance bands work by adding an external resistance force that can be applied without having to hold extra weight.";
+
+            //cardio
+            EquipDAL treadmill = new() { Name = "Treadmill", EquipmentType = EquipType.Machine, IsEssential = true};
+            treadmill.ImageLink = "https://i.ibb.co/gRzk7CV/treadmill.png";
+            treadmill.Description = "A treadmill is a device generally used for walking, running, or climbing while staying in the same place.";
+
+            EquipDAL bike = new() { Name = "Stationary Bicycle", EquipmentType = EquipType.Machine, IsEssential = false};
+            bike.ImageLink = "https://i.ibb.co/QFHQxqh/bicycle.png";
+            bike.Description = "A stationary bicycle is a device used as exercise equipment for indoor cycling.";
+
+            EquipDAL ellipse = new() { Name = "Elliptical", EquipmentType = EquipType.Machine, IsEssential = true};
+            ellipse.ImageLink = "https://i.ibb.co/S6J5Q8w/ellipse.png";
+            ellipse.Description = "An elliptical trainer is a stationary exercise machine used to stair climb, walk, or run without causing excessive pressure to the joints.";
+
+            EquipDAL climber = new() { Name = "Stair Machine", EquipmentType = EquipType.Machine, IsEssential = false};
+            climber.ImageLink = "https://i.ibb.co/XDf4rMv/climber.png";
+            climber.Description = "Stair climber is a stationary fitness machine that rotates steps, similar to a treadmill, allowing the user to climb upward at the speed and duration they set.";
+
+            EquipDAL rower = new() { Name = "Rower", EquipmentType = EquipType.Machine, IsEssential = true};
+            rower.ImageLink = "https://i.ibb.co/s2nstvT/rower.png";
+            rower.Description = "A rower, or rowing machine, is a machine used to simulate the action of watercraft rowing";
+
+
+            //machines
+            EquipDAL deltMachine = new() { Name = "Delt Machine", EquipmentType = EquipType.Machine, IsEssential = false};
+            deltMachine.ImageLink = "https://i.ibb.co/QYhj2Jt/delt-machine.png";
+            deltMachine.Description = "The machine is used to work deltoids, primarily side delts.";
+
+            EquipDAL pecFly = new() { Name = "Pectoral Fly/Rear Delt Machine", EquipmentType = EquipType.Machine, IsEssential = true};
+            pecFly.ImageLink = "https://i.ibb.co/kG4yxzt/pec-fly.png";
+            pecFly.Description = "The machine is used to work pectoral muscles and rear deltoid.";
+
+            EquipDAL chestPress = new() { Name = "Chest Press Machine", EquipmentType = EquipType.Machine, IsEssential = false};
+            chestPress.ImageLink = "https://i.ibb.co/wgjg3Wc/chest-press.png";
+            chestPress.Description = "The machine is used to work pectoral muscles and triceps";
+
+            EquipDAL shoulderMachine = new() { Name = "Shoulder Press Machine", EquipmentType = EquipType.Machine, IsEssential = false};
+            shoulderMachine.ImageLink = "https://i.ibb.co/25q6hDz/shoulder-press.png";
+            shoulderMachine.Description = "The machine is used to work shoulder muscles and triceps";
+
+            EquipDAL crossover = new() { Name = "Crossover", EquipmentType = EquipType.Machine, IsEssential = true};
+            crossover.ImageLink = "https://i.ibb.co/1QnmL8t/crossover.png";
+            crossover.Description = "The crossover machine allows users to access a near-unlimited number of high and low pulley exercises while working every major muscle group. It uses cables to provide resistance, allows you to change handles or adjust height for various movements.";
+
+            EquipDAL squatRack = new() { Name = "Squat Rack", EquipmentType = EquipType.StationaryItem, IsEssential = true};
+            squatRack.ImageLink = "https://i.ibb.co/GTMcZWj/squat-rack.png";
+            squatRack.Description = "A squat rack is used to support weight while doing squats, also works as a spotter.";
+
+            EquipDAL smith = new() { Name = "Smith Machine", EquipmentType = EquipType.StationaryItem, IsEssential = true};
+            smith.ImageLink = "https://i.ibb.co/7Rr9ph9/smith.png";
+            smith.Description = "A Smith machine is a construction which has a barbell attached to rails. It allows the Smith machine to spot you while you exercise, but severely changes your movement trajectory, also hepling to isolate worked muscles more.";
+
+            EquipDAL pulldown = new() { Name = "Pulldown Machine", EquipmentType = EquipType.Machine, IsEssential = true};
+            pulldown.ImageLink = "https://i.ibb.co/Db2M6bV/pulldown.png";
+            pulldown.Description = "The machine is used to work mainly lats and biceps, but also other muscles of back and arms.";
+
+            EquipDAL row = new() { Name = "Seated Low Row Machine", EquipmentType = EquipType.Machine, IsEssential = true};
+            row.ImageLink = "https://i.ibb.co/rHMWqsK/cable-row.png";
+            row.Description = "The machine is used to work mainly lats and biceps, but also other muscles of back and arms.";
+
+            EquipDAL chinUp = new() { Name = "Assisted Pull-Up/Dip Machine", EquipmentType = EquipType.Machine, IsEssential = true};
+            chinUp.ImageLink = "https://i.ibb.co/fxf3rm0/chin-up.png";
+            chinUp.Description = "This machine can help you with doing pull-ups, as well as triceps dips. It works your arm and back muscles.";
+
+            EquipDAL seatedDip = new() { Name = "Seated Dip Machine", EquipmentType = EquipType.Machine, IsEssential = false};
+            seatedDip.ImageLink = "https://i.ibb.co/fMgTQPn/seated-dip.png";
+            seatedDip.Description = "This machine is used to work triceps";
+
+
+
+
+
+
 
 
 
@@ -133,6 +239,6 @@ namespace DAL.DAL
 
         }
 
-        
+
     }
 }

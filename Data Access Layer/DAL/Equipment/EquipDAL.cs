@@ -16,6 +16,7 @@ namespace DAL.DAL
 
         public string ImageLink { get; set; }
         public string Description { get; set; }
+        public bool IsEssential { get; set; }
 
         public EquipType EquipmentType { get; set; }
 

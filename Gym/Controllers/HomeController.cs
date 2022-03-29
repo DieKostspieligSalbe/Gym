@@ -20,35 +20,31 @@ namespace Gym.Controllers
         {
             _logger = logger;
         }
-        [HttpGet]
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View(); //will be the main page with muscle layout perhaps
         }
 
-        [HttpGet]
-        [Route("ProcessMuscleClick")]
-        public IActionResult ProcessMuscleClick(int id)
-        {
-            var sentMuscle = MuscleStorage.muscleList.FirstOrDefault(x => x.MuscleType == (MuscleType)id);
-            var selectedMuscle = SelectedMuscleStorage.muscleList.FirstOrDefault(x => x == sentMuscle);
-            if (selectedMuscle is null)
-            {
-                SelectedMuscleStorage.muscleList.Add(sentMuscle);
-            }
-            else
-            {
-                SelectedMuscleStorage.muscleList.Remove(sentMuscle);
-            }
-            return PartialView("SelectedMuscles", SelectedMuscleStorage.muscleList);
-        }
 
-        [Route("TestClick")]
-        public IActionResult TestClick()
-        {
-            return Ok();
-        }
+        //[HttpGet]
+        //[Route("ProcessMuscleClick")]
+        //public IActionResult ProcessMuscleClick(int id)
+        //{
+        //    var sentMuscle = MuscleStorage.muscleList.FirstOrDefault(x => x.MuscleType == (MuscleType)id);
+        //    var selectedMuscle = SelectedMuscleStorage.muscleList.FirstOrDefault(x => x == sentMuscle);
+        //    if (selectedMuscle is null)
+        //    {
+        //        SelectedMuscleStorage.muscleList.Add(sentMuscle);
+        //    }
+        //    else
+        //    {
+        //        SelectedMuscleStorage.muscleList.Remove(sentMuscle);
+        //    }
+        //    return PartialView("SelectedMuscles", SelectedMuscleStorage.muscleList);
+        //}
+
 
 
 

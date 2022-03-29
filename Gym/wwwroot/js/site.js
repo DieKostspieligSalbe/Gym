@@ -46,37 +46,36 @@ const handleSubmit = () => {
 }
 
 
-
-$(function () {
-    const bodyWrapper = document.getElementById("body_wrapper")
+//$(function () {
+//    const bodyWrapper = document.getElementById("body_wrapper")
     
-    const handleMuscleMouseDown = (e) => {
-        console.log(e.target);
-        handleSubmit()
-        $.ajax({
-            type: "GET",
-            url: "/home/processmuscleclick",
-            data: { Id: e.target.parentNode.dataset.muscleId},
-            success: function (data) {
-                console.log(data);
-                document.getElementById("selected_muscles").innerHTML = data
-                muscleArray.push(e.target.parentNode.dataset.muscleId)
-                Array.from(muscleArray).forEach(muscleId => console.log(muscleId))
-            }
-        });
+//    const handleMuscleMouseDown = (e) => {
+//        console.log(e.target);
+//        handleSubmit()
+//        $.ajax({
+//            type: "GET",
+//            url: "home/wowinvalidurl",
+//            data: { Id: e.target.parentNode.dataset.muscleId},
+//            success: function (data) {
+//                console.log(data);
+//                document.getElementById("selected_muscles").innerHTML = data
+//                muscleArray.push(e.target.parentNode.dataset.muscleId)
+//                Array.from(muscleArray).forEach(muscleId => console.log(muscleId))
+//            }
+//        });
 
-    }
-    // bodyWrapper.addEventListener('mousedown', handleMuscleMouseDown)
+//    }
+//     bodyWrapper.addEventListener('mousedown', handleMuscleMouseDown)
 
 
-   /* $(".muscle-clicked").click(function () {
-        event.preventDefault();
-        console.log("Click-muscle class was clicked");*/
+//   /* $(".muscle-clicked").click(function () {
+//        event.preventDefault();
+//        console.log("Click-muscle class was clicked");*/
 
 
 
        
-    });
+//    });
 
 
 
