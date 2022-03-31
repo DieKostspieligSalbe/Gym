@@ -130,7 +130,7 @@ namespace DAL.DAL
 
             EquipDAL kettlebell = new() { Name = "Kettlebell", EquipmentType = EquipType.ActiveItem, IsEssential = false}; //consider if it is needed
             kettlebell.ImageLink = "https://i.ibb.co/wh0P14K/Kettlebell.png";
-            kettlebell.Description = "A kettlebell is a type of dumbbell or free weight that is round with a flat base and an arced handle. Unlike dumbbells, only one kettlebell is usually used for exercise";
+            kettlebell.Description = "A kettlebell is a type of dumbbell or free weight that is round with a flat base and an arced handle. Unlike dumbbells, only one kettlebell is usually used for exercise.";
 
             EquipDAL bench = new() { Name = "Bench", EquipmentType = EquipType.StationaryItem, IsEssential = true};
             bench.ImageLink = "https://i.ibb.co/BzGCVMK/bench.png";
@@ -179,7 +179,7 @@ namespace DAL.DAL
 
             EquipDAL rower = new() { Name = "Rower", EquipmentType = EquipType.Machine, IsEssential = true};
             rower.ImageLink = "https://i.ibb.co/s2nstvT/rower.png";
-            rower.Description = "A rower, or rowing machine, is a machine used to simulate the action of watercraft rowing";
+            rower.Description = "A rower, or rowing machine, is a machine used to simulate the action of watercraft rowing.";
 
 
             //machines
@@ -193,11 +193,11 @@ namespace DAL.DAL
 
             EquipDAL chestPress = new() { Name = "Chest Press Machine", EquipmentType = EquipType.Machine, IsEssential = false};
             chestPress.ImageLink = "https://i.ibb.co/wgjg3Wc/chest-press.png";
-            chestPress.Description = "The machine is used to work pectoral muscles and triceps";
+            chestPress.Description = "The machine is used to work pectoral muscles and triceps.";
 
             EquipDAL shoulderMachine = new() { Name = "Shoulder Press Machine", EquipmentType = EquipType.Machine, IsEssential = false};
             shoulderMachine.ImageLink = "https://i.ibb.co/25q6hDz/shoulder-press.png";
-            shoulderMachine.Description = "The machine is used to work shoulder muscles and triceps";
+            shoulderMachine.Description = "The machine is used to work shoulder muscles and triceps.";
 
             EquipDAL crossover = new() { Name = "Crossover", EquipmentType = EquipType.Machine, IsEssential = true};
             crossover.ImageLink = "https://i.ibb.co/1QnmL8t/crossover.png";
@@ -225,7 +225,91 @@ namespace DAL.DAL
 
             EquipDAL seatedDip = new() { Name = "Seated Dip Machine", EquipmentType = EquipType.Machine, IsEssential = false};
             seatedDip.ImageLink = "https://i.ibb.co/fMgTQPn/seated-dip.png";
-            seatedDip.Description = "This machine is used to work triceps";
+            seatedDip.Description = "This machine is used to work triceps.";
+
+
+            EquipDAL obliqMachine = new() { Name = "Oblique Twist Machine", EquipmentType = EquipType.Machine, IsEssential = false };
+            obliqMachine.ImageLink = "https://i.ibb.co/fMcfKw6/oblique-twist.png";
+            obliqMachine.Description = "This machine is used to work oblique and abdominal muscles.";
+
+            EquipDAL backMachine = new() { Name = "Lower Back Machine", EquipmentType = EquipType.Machine, IsEssential = false };
+            backMachine.ImageLink = "https://i.ibb.co/DMfhcWt/lower-back-machine.png";
+            backMachine.Description = "This machine is used to work lower back muscles.";
+
+            EquipDAL legRaise = new() { Name = "Captain's Chair", EquipmentType = EquipType.StationaryItem, IsEssential = false };
+            legRaise.ImageLink = "https://i.ibb.co/SDkS2ZV/dip-leg-raise.png";
+            legRaise.Description = "This construction is used to work abdominal muscles.";
+
+            EquipDAL absMachine = new() { Name = "Ab Crunch Machine", EquipmentType = EquipType.Machine, IsEssential = false };
+            absMachine.ImageLink = "https://i.ibb.co/cxDCyZz/abs.png";
+            absMachine.Description = "This machine is used to work your abdominal muscles.";
+
+            EquipDAL preacherMachine = new() { Name = "Preacher Curl Machine", EquipmentType = EquipType.Machine, IsEssential = false };
+            preacherMachine.ImageLink = "https://i.ibb.co/4tMpp9j/preacher-machine.png";
+            preacherMachine.Description = "This machine is used to work your biceps.";
+
+            EquipDAL preacherStand = new() { Name = "Preacher Curl Bench", EquipmentType = EquipType.StationaryItem, IsEssential = false };
+            preacherStand.ImageLink = "https://i.ibb.co/mhD5hPn/preacher-bench.png";
+            preacherStand.Description = "This item is used to work your biceps with a barbell.";
+
+            EquipDAL hack = new() { Name = "Hack Squat Machine", EquipmentType = EquipType.Machine, IsEssential = false};
+            hack.ImageLink = "https://i.ibb.co/rkV28Jc/hack-squat.png";
+            hack.Description = "This machine assists you with squatting by improving your core support and targeting your quadriceps more.";
+
+            EquipDAL legPress = new() { Name = "Leg Press Machine", EquipmentType = EquipType.Machine, IsEssential = false };
+            legPress.ImageLink = "https://i.ibb.co/gZyjCFh/leg-press.png";
+            legPress.Description = "This machine works your legs, primarily quads, but you can choose to also involve other leg muscles by simply adjusting your feet position.";
+
+
+            EquipDAL gluteMachine = new() { Name = "Glute Machine", EquipmentType = EquipType.Machine, IsEssential = false };
+            gluteMachine.ImageLink = "https://i.ibb.co/vHKQxWB/glute-machine.png";
+            gluteMachine.Description = "This machine is used to work your glutes.";
+
+            EquipDAL legExt = new() { Name = "Leg Extension Machine", EquipmentType = EquipType.Machine, IsEssential = false };
+            legExt.ImageLink = "https://i.ibb.co/kgHTMYP/leg-extension.png";
+            legExt.Description = "This machine is used to work your quadriceps.";
+
+            EquipDAL legCurl = new() { Name = "Leg Curl Machine", EquipmentType = EquipType.Machine, IsEssential = false };
+            legCurl.ImageLink = "https://i.ibb.co/6X4bLKY/leg-curl-true.png";
+            legCurl.Description = "This machine is used to works your hamstrings.";
+
+            EquipDAL calveMachine = new() { Name = "Calf Machine", EquipmentType = EquipType.Machine, IsEssential = false };
+            calveMachine.ImageLink = "https://i.ibb.co/C61DJRq/calf-machine.png";
+            calveMachine.Description = "This machine is used to work your calves.";
+
+            EquipDAL hipThrust = new() { Name = "Hip Thrust Machine", EquipmentType = EquipType.Machine, IsEssential = false };
+            hipThrust.ImageLink = "https://i.ibb.co/k2Btr2p/hip-thrust.png";
+            hipThrust.Description = "This machine is used to work your glutes.";
+
+            EquipDAL totalHip = new() { Name = "Total Hip Machine", EquipmentType = EquipType.Machine, IsEssential = false };
+            totalHip.ImageLink = "https://i.ibb.co/kMmdzpH/total-hip.png";
+            totalHip.Description = "This machine is used to work your hip muscles, including glutes.";
+
+            EquipDAL abdAdd = new() { Name = "Abductors/Adductors Machine", EquipmentType = EquipType.Machine, IsEssential = false };
+            abdAdd.ImageLink = "https://i.ibb.co/9q7ffS7/abd-add.png";
+            abdAdd.Description = "This machine is used to work your abductors and adductors.";
+
+            EquipDAL kickbackMachine = new() { Name = "Kickback Machine", EquipmentType = EquipType.Machine, IsEssential = false };
+            kickbackMachine.ImageLink = "https://i.ibb.co/n37B8DZ/kickback.png";
+            kickbackMachine.Description = "This machine is used to work your glutes and hamstrings.";
+
+            EquipDAL benchPressItem = new() { Name = "Bench Press", EquipmentType = EquipType.StationaryItem, IsEssential = true };
+            benchPressItem.ImageLink = "https://i.ibb.co/9YzZDvG/bench-press.png";
+            benchPressItem.Description = "Bench press stand is used to work your pectoral muscles and triceps.";
+
+            EquipDAL tricepsMachine = new() { Name = "Triceps Machine", EquipmentType = EquipType.Machine, IsEssential = false };
+            tricepsMachine.ImageLink = "https://i.ibb.co/dbGBwcs/triceps-machine.png";
+            tricepsMachine.Description = "This machine is used to work your triceps.";
+
+
+
+
+
+
+            //exercises
+
+
+
 
 
 
