@@ -85,10 +85,20 @@ body {
     margin: 10px;
 }
 
+
+.home_main_container div {
+    text-align: center;
+}
+
 .home_main_container span {
     text-align: center;
     align-content: center;
-    font-size: 25px;
+    font-size: 27px;
+    font-weight: 600;
+    color: #3E3E3E;
+    margin: 0px;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .home_main_container button {
@@ -112,16 +122,16 @@ body {
     flex-direction: row;
 }
 
-.week-days .day-container {
+.week .week-days .day-container {
     background-color: gainsboro;
     border: 1px black solid;
-    height: 200%;
+    min-height: 300px;
 } 
 
-.week-days .holiday-container {
+.week .week-days .holiday-container {
     background-color: mistyrose;
     border: 1px black solid;
-    height: 200%;
+    min-height: 300px;
 
 }
 
@@ -157,6 +167,35 @@ body {
     padding-top: 2px;
 }
 
+.home_main_container .home_vertical_right .submit {
+    display: flex;
+    flex-grow: 1;
+    text-align: center;
+    align-content: center;
+}
+.home_main_container .home_vertical_right .submit button {
+    background-color: lawngreen;    
+    flex-direction: row;
+    flex-grow: 1;
+    text-align: center;
+    align-content: center;
+}
+
+.training_options {
+    display: flex;
+    flex-direction: column;
+}
+
+.training_options_2 {
+    display: flex;
+    flex-direction: row;
+}
+
+.training_options_2 button {
+    flex-grow: 1;
+    text-align: center;
+    align-content: center;
+}
 
 
 
