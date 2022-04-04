@@ -39,7 +39,7 @@ namespace DAL.DAL
             rearDelt.ImageLink = "https://i.ibb.co/6n3PSWR/rearDelt.png";
             rearDelt.Description = "The posterior deltoid, or rear delts, located on the back of your shoulders, are crucial to stable and healthy shoulders. Under-performing rear delts prevent you from gaining strength with overhead pressing and bench pressing. They also play a crucial role in your posture. Sitting in a hunched position with your shoulders rolled forward lengthens and weakens the rear delts.";
 
-            MuscleDAL infraspin = new() { Name = "Rotator Cuff", MovementType = MovementType.Push, BodyPartType = BodyPartType.Back, BodySectionType = BodySectionType.Upper, MuscleType = MuscleType.Infraspinatus };
+            MuscleDAL infraspin = new() { Name = "Rotator Cuff", MovementType = MovementType.Pull, BodyPartType = BodyPartType.Back, BodySectionType = BodySectionType.Upper, MuscleType = MuscleType.Infraspinatus };
             infraspin.ImageLink = "https://i.ibb.co/mXPN4gG/infraspin.png";
             infraspin.Description = "The rotator cuff is a group of four muscles that stabilize the shoulder and allow it to move. Repetitive, overhead motions can wear down the rotator cuff muscles and are thus a common cause of injury. Heavy benching with poor form is just a recipe for rotator cuff disaster, and heavy bench pressing with good form still places large amounts of stress on these small muscles, that's why it is also important to give these little muscles a good workout.";
 
@@ -128,10 +128,6 @@ namespace DAL.DAL
             dumbbell.ImageLink = "https://i.ibb.co/ScHCyrw/dumbbell.png";
             dumbbell.Description = "A dumbbell is a short bar with a weight at each end, used typically in pairs for exercise or muscle-building.";
 
-            EquipDAL kettlebell = new() { Name = "Kettlebell", EquipmentType = EquipType.ActiveItem, IsEssential = false}; //consider if it is needed
-            kettlebell.ImageLink = "https://i.ibb.co/wh0P14K/Kettlebell.png";
-            kettlebell.Description = "A kettlebell is a type of dumbbell or free weight that is round with a flat base and an arced handle. Unlike dumbbells, only one kettlebell is usually used for exercise.";
-
             EquipDAL bench = new() { Name = "Bench", EquipmentType = EquipType.StationaryItem, IsEssential = true};
             bench.ImageLink = "https://i.ibb.co/BzGCVMK/bench.png";
             bench.Description = "Weight benches are versatile pieces of workout equipment that can support a wide array of workouts.";
@@ -155,10 +151,6 @@ namespace DAL.DAL
             EquipDAL ball = new() { Name = "Ball", EquipmentType = EquipType.ActiveItem, IsEssential = false}; //consider
             ball.ImageLink = "https://i.ibb.co/m6QP80z/ball.png";
             ball.Description = "Exercise balls - also known as physioballs, Swiss balls, or fit balls -- are large, vinyl balls you can use to strengthen and stretch your body, improving core stability and balance.";
-
-            EquipDAL elasticBand = new() { Name = "Resistance Band", EquipmentType = EquipType.ActiveItem, IsEssential = false}; //consider
-            elasticBand.ImageLink = "https://i.ibb.co/LnpGGkZ/rubber-band.png";
-            elasticBand.Description = "Resistance bands work by adding an external resistance force that can be applied without having to hold extra weight.";
 
             //cardio
             EquipDAL treadmill = new() { Name = "Treadmill", EquipmentType = EquipType.Machine, IsEssential = true};
@@ -307,6 +299,227 @@ namespace DAL.DAL
 
 
             //exercises
+
+            ExerciseDAL neckExt = new() { Name = "Neck Extension", IsCompound = false, IsEssential = false };
+            neckExt.ImageLink = "https://i.ibb.co/XkPvTpQ/weighted-neck-extension.png";
+            neckExt.Description = "This set of exercises can help you develop your neck muscles.";
+
+            ExerciseDAL shrugs = new() { Name = "Shrugs", IsEssential = false, IsCompound = true };
+            shrugs.ImageLink = "https://i.ibb.co/CPh1fbm/shrugs.png";
+            shrugs.Description = "This exercise can help you developer your traps and forearms, strengthen your neck and rotator cuffs.";
+
+            ExerciseDAL frontDeltRaise = new() { Name = "Anterior Deltoid Raise", IsEssential = false, IsCompound = false };
+            frontDeltRaise.ImageLink = "https://i.ibb.co/WPBVRDr/delt-front-raise.png";
+            frontDeltRaise.Description = "This exercise mainly targets your front delts, using some other upper body muscles for stabiization.";
+
+            ExerciseDAL shoulderPress = new() { Name = "Shoulder Overhead Press", IsEssential = true, IsCompound = true };
+            shoulderPress.ImageLink = "https://i.ibb.co/jgJCnPm/shoulder-press.png";
+            shoulderPress.Description = "This exercise mainly works your front and side delts, also targeting triceps, traps and pectoral muscles.";
+
+            ExerciseDAL sideDeltRaise = new() { Name = "Lateral Deltoid Raise", IsEssential= false, IsCompound = true };
+            sideDeltRaise.ImageLink = "https://i.ibb.co/nkFCH12/shoulder-lateral-raise.png";
+            sideDeltRaise.Description = "This exercise mainly workd your side delts, also involving many other shoulder muscles.";
+
+            ExerciseDAL uprightRow = new() { Name = "Upright Row", IsEssential = false, IsCompound = true };
+            uprightRow.ImageLink = "https://i.ibb.co/nLJWpCn/upright-row.png";
+            uprightRow.Description = "This exercise targets your traps and side delts, as well as other deltoid muscles.";
+
+            ExerciseDAL reverseFly = new() { Name = "Reverse Fly", IsCompound = true, IsEssential = false };
+            reverseFly.ImageLink = "https://i.ibb.co/1KmYBQx/reverse-fly.png";
+            reverseFly.Description = "This exercise works mainly your reat delts, also targeting traps and rotator cuff.";
+
+            ExerciseDAL bentOverRow = new() { Name = "Bent-Over Row", IsCompound = true, IsEssential = true };
+            bentOverRow.ImageLink = "https://i.ibb.co/PZX2fnJ/bent-over-row.png";
+            bentOverRow.Description = "This exercise mainly works your lats, traps and rotator cuffs.";
+
+            ExerciseDAL cableHighPull = new() { Name = "Cable High Pull", IsEssential = false, IsCompound = false };
+            cableHighPull.ImageLink = "https://i.ibb.co/wSDzPjm/cable-high-pull-with-ropes.png";
+            cableHighPull.Description = "This exercise mainly works your rear delt and rotator cuffs.";
+
+            ExerciseDAL pullUp = new() { Name = "Pull Up", IsCompound = true, IsEssential = true };
+            pullUp.ImageLink = "https://i.ibb.co/RppdZ9k/pull-up.png";
+            pullUp.Description = "This exercise mainly works your lats, also targeting arm and shoulder muscles.";
+
+            ExerciseDAL deadlift = new() { Name = "Deadlift", IsEssential = true, IsCompound = true };
+            deadlift.ImageLink = "https://i.ibb.co/tBP93hJ/deadlift.png";
+            deadlift.Description = "This exercise works your glutes, hamstrings and lower back, as well as traps and forearms.";
+
+            ExerciseDAL hyperextension = new() { Name = "Hyperextension", IsCompound = false, IsEssential = false };
+            hyperextension.ImageLink = "https://i.ibb.co/vQ45rQk/roman-bench-hyperextension.png";
+            hyperextension.Description = "This exercise works your glutes and lower back, also targeting hamstrings.";
+
+            ExerciseDAL lowRow = new() { Name = "Low Row", IsEssential = true, IsCompound = true };
+            lowRow.ImageLink = "https://i.ibb.co/x8bHMP2/low-row.png";
+            lowRow.Description = "This exercise primarily works your lats, also targeting other shoulder and arm muscles.";
+
+            ExerciseDAL pullDown = new() { Name = "Pull Down", IsCompound = true, IsEssential = true };
+            pullDown.ImageLink = "https://i.ibb.co/gzNZ79b/pulldown.png";
+            pullDown.Description = "This exercise mainly works your lats, also targeting arm and shoulder muscles.";
+
+            ExerciseDAL chestPressEx = new() { Name = "Chest Press", IsCompound = true, IsEssential = true };
+            chestPressEx.ImageLink = "https://i.ibb.co/KqS06JM/chest-press.png";
+            chestPressEx.Description = "This essential exercise mainle works your pecs, as well as triceps and front delts.";
+
+            ExerciseDAL dip = new() { Name = "Dip", IsCompound = true, IsEssential = true };
+            dip.ImageLink = "https://i.ibb.co/0Xg2Y4j/dip.png";
+            dip.Description = "This exercise mainly works your pecs and triceps, also targeting front delts.";
+
+            ExerciseDAL pecFlyEx = new() { Name = "Pectoral Fly", IsCompound = false, IsEssential = false };
+            pecFlyEx.ImageLink = "https://i.ibb.co/8Nj9W9q/chest-fly.png";
+            pecFlyEx.Description = "This exercise works your pecs.";
+
+            ExerciseDAL pushUp = new() { Name = "Push Up", IsEssential = true, IsCompound = true };
+            pushUp.ImageLink = "https://i.ibb.co/Z1vwJLy/push-up.png";
+            pushUp.Description = "This exercise works your pecs and triceps, also targeting your front delts and abs.";
+
+            ExerciseDAL tricepsKickback = new() { Name = "Triceps Kickback", IsCompound = false, IsEssential = false };
+            tricepsKickback.ImageLink = "https://i.ibb.co/QDZgnBN/triceps-kickback.png";
+            tricepsKickback.Description = "This exercise works your triceps.";
+
+            ExerciseDAL ropePushdown = new() { Name = "Tricep Pushdown", IsCompound = false, IsEssential = false };
+            ropePushdown.ImageLink = "https://i.ibb.co/cvc3pxD/rope-pushdown.png";
+            ropePushdown.Description = "This exercise works your triceps.";
+
+            ExerciseDAL skullCrusher = new() { Name = "Skull Crusher", IsEssential = false, IsCompound = false };
+            skullCrusher.ImageLink = "https://i.ibb.co/Nm7nffc/skull-crusher.png";
+            skullCrusher.Description = "This exercise works your triceps.";
+
+            ExerciseDAL overheadExtension = new() { Name = "Tricep Overhead Extenstion", IsCompound = false, IsEssential = false};
+            overheadExtension.ImageLink = "https://i.ibb.co/y53hfZF/overhead-triceps-extension.png";
+            overheadExtension.Description = "This exercise works your triceps.";
+
+            ExerciseDAL obliqueTwist = new() { Name = "Oblique Twist", IsEssential = false, IsCompound = false };
+            obliqueTwist.ImageLink = "https://i.ibb.co/YbcnLYr/oblique-twist.png";
+            obliqueTwist.Description = "This exercise works your obliques.";
+
+            ExerciseDAL legRaiseEx = new() { Name = "Leg Raise", IsCompound = false, IsEssential = false};
+            legRaiseEx.ImageLink = "https://i.ibb.co/N3sDjtk/leg-raise.png";
+            legRaiseEx.Description = "This exercise works your abs.";
+
+            ExerciseDAL sideBend = new() { Name = "Side Bend", IsEssential = false, IsCompound = false };
+            sideBend.ImageLink = "https://i.ibb.co/kB28JhM/side-bend.png";
+            sideBend.Description = "This exercise works your obliques and abs.";
+
+            ExerciseDAL crunch = new() { Name = "Crunch", IsCompound = false, IsEssential = false };
+            crunch.ImageLink = "https://i.ibb.co/VpfzLkz/crunch.png";
+            crunch.Description = "This exercise works your abs and obliques.";
+
+            ExerciseDAL plank = new() { Name = "Plank", IsEssential = false, IsCompound = false};
+            plank.ImageLink = "https://i.ibb.co/CHjX2ZN/plank.png";
+            plank.Description = "This exercise works your abs and obliques.";
+
+            ExerciseDAL reverseCurl = new() { Name = "Reverse Curl", IsCompound = false, IsEssential = false };
+            reverseCurl.ImageLink = "https://i.ibb.co/PrBQdcM/reverse-curl.png";
+            reverseCurl.Description = "This exercise works your forearms and biceps.";
+
+            ExerciseDAL wristRoll = new() { Name = "Wrist Curl", IsEssential = false, IsCompound = false };
+            wristRoll.ImageLink = "https://i.ibb.co/NyvFNnw/wrist-roll.png";
+            wristRoll.Description = "This exercise works your forearms.";
+
+            ExerciseDAL bicepCurl = new() { Name = "Bicep Curl", IsCompound = false, IsEssential = true };
+            bicepCurl.ImageLink = "https://i.ibb.co/yg76k2p/biceps-curl.png";
+            bicepCurl.Description = "This exercise works your biceps.";
+
+            ExerciseDAL squat = new() { Name = "Squat", IsEssential = true, IsCompound = true };
+            squat.ImageLink = "https://i.ibb.co/PwPR9c6/squat.png";
+            squat.Description = "This compound exercise works pretty much all your leg muscles.";
+
+            ExerciseDAL legKickback = new() { Name = "Glute Kickback", IsCompound = false, IsEssential = false };
+            legKickback.ImageLink = "https://i.ibb.co/ZYLJT0V/leg-kickback.png";
+            legKickback.Description = "This exercise works your glutes and hamstrings.";
+
+            ExerciseDAL hipThrustEx = new() { Name = "Hip Thrust", IsEssential = false, IsCompound = false };
+            hipThrustEx.ImageLink = "https://i.ibb.co/SVnP9xy/hip-thrust.png";
+            hipThrustEx.Description = "This exercise works your glutes and hamstrings.";
+
+            ExerciseDAL lunges = new() { Name = "Lunges", IsCompound = true, IsEssential = true };
+            lunges.ImageLink = "https://i.ibb.co/rG1b1XV/lunges.png";
+            lunges.Description = "This exercise targets nearly all your leg muscles, mainly glutes and quads.";
+
+            ExerciseDAL calfRaise = new() { Name = "Calf Raise", IsEssential = false, IsCompound = false };
+            calfRaise.ImageLink = "https://i.ibb.co/WKVbBy5/calf-raise.png";
+            calfRaise.Description = "This exercise works your calves.";
+
+            ExerciseDAL legCurlEx = new() { Name = "Leg Curl", IsCompound = false, IsEssential = false };
+            legCurlEx.ImageLink = "https://i.ibb.co/CHZJmx9/leg-curl.png";
+            legCurlEx.Description = "This exercise works your hamstrings.";
+
+            ExerciseDAL legExtenstion = new() { Name = "Leg Extension", IsEssential = false, IsCompound = false };
+            legExtenstion.ImageLink = "https://i.ibb.co/k8ysZc0/leg-extension.png";
+            legExtenstion.Description = "This exercise works your quads.";
+
+            ExerciseDAL legPressEx = new() { Name = "Leg Press", IsCompound = true, IsEssential = true };
+            legPressEx.ImageLink = "https://i.ibb.co/Nm40rFx/leg-press.png";
+            legPressEx.Description = "This alternative to squats also works nearly all your leg muscles.";
+
+            ExerciseDAL hipAdduction = new() { Name = "Hip Adduction", IsEssential = false, IsCompound = false };
+            hipAdduction.ImageLink = "https://i.ibb.co/jfWt1jm/hip-adduction.png";
+            hipAdduction.Description = "This exercise works your adductors.";
+
+            ExerciseDAL hipAbduction = new() { Name = "Hip Abduction", IsCompound = false, IsEssential = false };
+            hipAbduction.ImageLink = "https://i.ibb.co/3kHTvJQ/hip-abduction.png";
+            hipAbduction.Description = "This exercise works your abductors.";
+
+            //cardios
+
+            ExerciseDAL treadmillEx = new() { Name = "Treadmill", IsCompound = true, IsEssential = true };
+            treadmillEx.ImageLink = "https://i.ibb.co/s5J7jXL/treadmill.png";
+            treadmillEx.Description = "Treadmill running not only targets you heart, but also the majority of your leg muscles.";
+
+            ExerciseDAL bikeEx = new() { Name = "Stationary Bike", IsEssential = false, IsCompound = true };
+            bikeEx.ImageLink = "https://i.ibb.co/n3XxL71/bike.png";
+            bikeEx.Description = "Stationary Bike targets your heart and the majority of your leg muscles.";
+
+            ExerciseDAL ellipseEx = new() { Name = "Elliptical", IsCompound = true, IsEssential = false };
+            ellipseEx.ImageLink = "https://i.ibb.co/rwK7wPB/ellipse.png";
+            ellipseEx.Description = "Elliptical is a great cardio and leg workout that is easy on your joints.";
+
+            ExerciseDAL stairsEx = new() { Name = "Stairs Climbing", IsEssential = false, IsCompound = true };
+            stairsEx.ImageLink = "https://i.ibb.co/2dhpCsz/stairs.png";
+            stairsEx.Description = "Stairs climbing is very heavy not only on your heart, but also pretty much all leg muscles.";
+
+            ExerciseDAL rowingEx = new() { Name = "Rowing", IsCompound = true, IsEssential = true };
+            rowingEx.ImageLink = "https://i.ibb.co/dKTjrRh/rower.png";
+            rowingEx.Description = "This unique exercise targets perhaps the most muscles in your body being a great full-body and cardio choice.";
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

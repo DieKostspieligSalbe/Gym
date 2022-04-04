@@ -17,7 +17,6 @@ namespace DAL.DAL
         }
 
         public DbSet<UserDAL> Users { get; set; } = null!;
-        public DbSet<UserProfileDAL> UserProfiles { get; set; } = null!;
         public DbSet<TrainingProgramDAL> TrainingPrograms { get; set; }
         public DbSet<MuscleDAL> Muscles { get; set; }
         public DbSet<ExerciseDAL> Exercises { get; set; }
@@ -40,12 +39,10 @@ namespace DAL.DAL
                 .WithMany(p => p.Users);
 
             modelBuilder.Entity<TrainingProgramDAL>()
-                .HasMany(t => t.MuscleList)
-                .WithMany(m => m.InvolvedInPrograms);
+                .HasMany(t => t.MuscleList);//
 
             modelBuilder.Entity<TrainingProgramDAL>()
-                .HasMany(t => t.ExerciseList)
-                .WithMany(e => e.UsedInPrograms);
+                .HasMany(t => t.ExerciseList);//
 
             modelBuilder.Entity<MuscleDAL>()
                 .HasMany(m => m.PrimaryExList)
@@ -56,21 +53,15 @@ namespace DAL.DAL
                 .WithMany(e => e.SecondaryMuscleList);
 
             modelBuilder.Entity<ExerciseDAL>()
-                .HasMany(e => e.MachineList)
+                .HasMany(e => e.EquipList)
                 .WithMany(m => m.ExercisesList);
 
             modelBuilder.Entity<EquipDAL>()
-                .HasMany(m => m.PrimaryMusclesList)
-                .WithMany(m => m.PrimaryMachineList);
+                .HasMany(m => m.PrimaryMusclesList);//
 
             modelBuilder.Entity<EquipDAL>()
-                .HasMany(m => m.SecondaryMusclesList)
-                .WithMany(m => m.SecondaryMachineList);
+                .HasMany(m => m.SecondaryMusclesList);//
 
-            modelBuilder.Entity<UserDAL>()
-                .HasOne(u => u.UserProfile)
-                .WithOne(p => p.User)
-                .HasForeignKey<UserProfileDAL>(p => p.UserId);
         }
 
         protected string ConnectionConfiguring()
