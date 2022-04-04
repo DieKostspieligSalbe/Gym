@@ -9,7 +9,7 @@
 <div class="home_main_container">
     <div class="home_vertical_left">
         <div class="muscle_buttons">
-            <span>Select the muscles you want to buff:</span>
+            <span class="main_span">Select the muscles you want to buff:</span>
             <div id="body_wrapper" class="muscles">
              @await Html.PartialAsync("Human_front")
              @await Html.PartialAsync("Human_back")
@@ -17,7 +17,7 @@
             </div>
         </div>
         <div>
-            <span>Selected muscles:</span>
+            <span class="main_span">Selected muscles:</span>
             <div id="selected_muscles" class="selected_muscles"> 
                 <!--JS generates buttons accordingly to selected muscles here-->
             </div>
@@ -27,46 +27,57 @@
     <div class="home_vertical_right">
         <div class="intensity">
             <!--Training intensity selection-->
-            <span>Select your trainings intensity:</span>
+            <span class="main_span">Select your preferred training split:</span>
             <form>
-                <button>Lazy</button>
-                <button>Some efforts</button>
-                <button>Gym bro</button>
+                <button>Full Body</button>
+                <button>Upper/Lower</button>
+                <button>Push/Pull/Leg</button>
             </form>
         </div>
+
+        <div class="submit">
+            <button>Submit</button>
+        </div>
+
+
         <div class="week">
-            <span>Your weekly training plan:</span>
+            <span class="main_span">Your weekly training plan:</span>
             <div class="week-days">
-                <div class="day-container">
-                    <span class="day">Monday</span>
+                <div class="day-container"> 
+
                 </div>
                  <div class="day-container">
-                    <span class="day">Tuesday</span>
+
                 </div>
                  <div class="day-container">
-                    <span class="day">Wednesday</span>
+
                 </div>
                  <div class="day-container">
-                    <span class="day">Thursday</span>
+
                 </div>
                  <div class="day-container">
-                    <span class="day">Friday</span>
+
                 </div>
-                 <div class="day-container holiday-container">
-                    <span class="day">Saturday</span>
+                 <div class="holiday-container">
+
                 </div>
-                 <div class="day-container holiday-container">
-                    <span class="day">Sunday</span>
+                 <div class="holiday-container">
+
                 </div>
             </div>
         </div>
+        
         <div class="training_options">
-            <span>Training program options:</span>
-            <form>
-                <text>Program name</text>
+            <div><span class="main_span">Training program options:</span></div>
+            <div class="training_options_1">
+                <label>Program name:</label>
+                <input type="text"/>
+                <input type="checkbox" name="make_public" value="Make public"/>
+                <label for="make_public">Make public</label>
+            </div>
+            <div class="training_options_2">     
                 <button>Save</button>
-                <checkbox>Make public</checkbox>
-            </form>
+            </div>    
         </div>
     </div>
 </div>

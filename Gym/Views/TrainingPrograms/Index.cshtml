@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Gym.Models.TrainingProgramViewModel>
+
+<p>
+    <form asp-controller="TrainingPrograms" asp-action="SearchResults">
+    <p>
+        Title: <input type="search" name="searchTerm" />
+        <input type="submit" value="Search" />
+    </p>
+</form>
+</p>
+
+<div class="containter d-flex flex-wrap">
+    @foreach(var item in Model)
+    {
+       
+ <div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="/images/@(item.Name.Trim()).jpg" alt="@item.Name">
+  <div class="card-body">
+    <h5 class="card-title">@item.Name</h5>
+    <p class="card-text">@Html.DisplayFor(m => item.Intensity)</p>
+    <p class="card-text">@item.Description</p>
+    <a href="/TechService/ShowDetails/@item.Id" class="btn btn-primary">Show more</a>
+    <a href="/TechService/Edit/@item.Id" class="btn btn-warning">Edit</a>
+    <a href="/TechService/Delete/@item.Id" class="btn btn-danger">Delete</a>
+  </div>
+</div>
+
+  }
+</div>
