@@ -8,10 +8,10 @@ namespace DAL.DAL
 {
     public class UserRepository : IRepository<UserDAL>
     {
-        private UserContext context;
+        private GeneralContext context;
         private bool disposed = false;
 
-        public UserRepository(UserContext context)
+        public UserRepository(GeneralContext context)
         {
             this.context = context;
         }

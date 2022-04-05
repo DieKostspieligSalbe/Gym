@@ -16,12 +16,12 @@ namespace Gym.Controllers
     public class LoginController : Controller
     {
         private UserRepository userRepository;
-        private UserContext userContext;
+        private GeneralContext context;
         private readonly IMapper mapper;
-        public LoginController(UserContext context, IMapper mapper)
+        public LoginController(GeneralContext context, IMapper mapper)
         {
-            userContext = context;
-            userRepository = new UserRepository(userContext);
+            this.context = context;
+            userRepository = new UserRepository(context);
             this.mapper = mapper;
             //userRepository.FillDatabaseWithUsers();
         }

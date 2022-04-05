@@ -1,0 +1,21 @@
+* {
+    transition: all cubic-bezier(.78,.14,.15,.85) .15s;
+}
+
+.muscles {
+    display:flex;
+    justify-content: space-around;
+}
+
+.svg_wrapper {
+    margin: 0;
+}
+
+.muscle--hover {
+    fill: red;
+}
+
+.muscle--open {
+    fill:red;
+}
+

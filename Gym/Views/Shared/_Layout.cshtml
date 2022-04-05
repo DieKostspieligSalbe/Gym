@@ -6,12 +6,14 @@
     <title>@ViewData["Title"] - Gym</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="~/css/svg_styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap"
       rel="stylesheet"/>
 </head>
+
 <body>
      <header class="header">
       <img
@@ -21,13 +23,13 @@
       <nav class="header__nav">
         <ul class="header__links--main-nav">
           <li>
-              <a asp-controller="Home" asp-action="Index">Home</a>
+              <a asp-controller="Home" asp-action="Index">Muscle Home</a>
           </li>
           <li>
-              <a>Link2</a>
+              <a>Training Programs</a>
           </li>
           <li>
-              <a>Link3</a>
+              <a>Diet calculator</a>
           </li>        
         </ul>
         <ul class="header__links--auth-links">

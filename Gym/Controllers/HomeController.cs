@@ -21,7 +21,7 @@ namespace Gym.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            return View(); //will be the main page with muscle layout perhaps
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
