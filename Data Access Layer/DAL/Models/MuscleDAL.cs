@@ -15,8 +15,8 @@ namespace DAL.DAL
         public BodySectionType BodySectionType { get; set; }
         public BodyPartType BodyPartType { get; set; }
 
-        public List<ExerciseDAL> PrimaryExList { get; set; } = new();
-        public List<ExerciseDAL> SecondaryExList { get; set; } = new();
+        //public List<ExerciseDAL> PrimaryExList { get; set; } = new();
+        //public List<ExerciseDAL> SecondaryExList { get; set; } = new();
 
         public string ImageLink { get; set; }
         [StringLength(2000)]

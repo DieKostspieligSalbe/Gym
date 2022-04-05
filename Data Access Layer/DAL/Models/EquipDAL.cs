@@ -12,7 +12,7 @@ namespace DAL.DAL
         public string Name { get; set; }
         public List<MuscleDAL> PrimaryMusclesList { get; set; } = new();
         public List<MuscleDAL> SecondaryMusclesList { get; set; } = new();
-        public List<ExerciseDAL> ExercisesList { get; set; } = new();
+        //public List<ExerciseDAL> ExercisesList { get; set; } = new();
 
         public string ImageLink { get; set; }
         public string Description { get; set; }

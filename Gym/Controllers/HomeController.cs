@@ -15,15 +15,19 @@ namespace Gym.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly GeneralContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, GeneralContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
+            DbFiller dbFiller = new(_context);
+            dbFiller.FillDatabase();
             return View(); //will be the main page with muscle layout perhaps
         }
 

@@ -44,17 +44,14 @@ namespace DAL.DAL
             modelBuilder.Entity<TrainingProgramDAL>()
                 .HasMany(t => t.ExerciseList);//
 
-            modelBuilder.Entity<MuscleDAL>()
-                .HasMany(m => m.PrimaryExList)
-                .WithMany(e => e.PrimaryMuscleList);
-
-            modelBuilder.Entity<MuscleDAL>()
-                .HasMany(m => m.SecondaryExList)
-                .WithMany(e => e.SecondaryMuscleList);
+            modelBuilder.Entity<ExerciseDAL>()
+                .HasMany(e => e.EquipList);
 
             modelBuilder.Entity<ExerciseDAL>()
-                .HasMany(e => e.EquipList)
-                .WithMany(m => m.ExercisesList);
+                .HasMany(e => e.PrimaryMuscleList);
+
+            modelBuilder.Entity<ExerciseDAL>()
+                .HasMany(e => e.SecondaryMuscleList);
 
             modelBuilder.Entity<EquipDAL>()
                 .HasMany(m => m.PrimaryMusclesList);//

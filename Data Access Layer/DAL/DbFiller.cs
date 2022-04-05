@@ -292,7 +292,15 @@ namespace DAL.DAL
             EquipDAL tricepsMachine = new() { Name = "Triceps Machine", EquipmentType = EquipType.Machine, IsEssential = false };
             tricepsMachine.ImageLink = "https://i.ibb.co/dbGBwcs/triceps-machine.png";
             tricepsMachine.Description = "This machine is used to work your triceps.";
+            
+            //add equip to db
 
+            _context.Equipment.AddRange(barbell, weightPlate, dumbbell, bench, romanBench, landmine, bar, mat, ball);
+            _context.Equipment.AddRange(treadmill, ellipse, bike, climber, rower);
+            _context.Equipment.AddRange(deltMachine, pecFly, shoulderMachine, chestPress, crossover, squatRack, smith, pulldown, row, chinUp, seatedDip);
+            _context.Equipment.AddRange(obliqMachine, backMachine, legRaise, absMachine, preacherMachine, preacherStand, hack, legPress);
+            _context.Equipment.AddRange(gluteMachine, legExt, legCurl, calveMachine, hipThrust, totalHip, abdAdd, kickbackMachine, benchPressItem, tricepsMachine);
+            _context.SaveChanges();
 
 
 
@@ -444,9 +452,9 @@ namespace DAL.DAL
             legCurlEx.ImageLink = "https://i.ibb.co/CHZJmx9/leg-curl.png";
             legCurlEx.Description = "This exercise works your hamstrings.";
 
-            ExerciseDAL legExtenstion = new() { Name = "Leg Extension", IsEssential = false, IsCompound = false };
-            legExtenstion.ImageLink = "https://i.ibb.co/k8ysZc0/leg-extension.png";
-            legExtenstion.Description = "This exercise works your quads.";
+            ExerciseDAL legExtension = new() { Name = "Leg Extension", IsEssential = false, IsCompound = false };
+            legExtension.ImageLink = "https://i.ibb.co/k8ysZc0/leg-extension.png";
+            legExtension.Description = "This exercise works your quads.";
 
             ExerciseDAL legPressEx = new() { Name = "Leg Press", IsCompound = true, IsEssential = true };
             legPressEx.ImageLink = "https://i.ibb.co/Nm40rFx/leg-press.png";
@@ -481,6 +489,201 @@ namespace DAL.DAL
             ExerciseDAL rowingEx = new() { Name = "Rowing", IsCompound = true, IsEssential = true };
             rowingEx.ImageLink = "https://i.ibb.co/dKTjrRh/rower.png";
             rowingEx.Description = "This unique exercise targets perhaps the most muscles in your body being a great full-body and cardio choice.";
+
+
+            //add exercises to db
+
+            _context.Exercises.AddRange(neckExt, frontDeltRaise, shrugs, shoulderPress, sideDeltRaise, uprightRow, reverseFly, bentOverRow, cableHighPull, pullUp);
+            _context.Exercises.AddRange(deadlift, hyperextension, lowRow, pullDown, chestPressEx, dip, pecFlyEx, pushUp, tricepsKickback, ropePushdown, skullCrusher, overheadExtension);
+            _context.Exercises.AddRange(obliqueTwist, legRaiseEx, sideBend, crunch, plank, reverseCurl, wristRoll, bicepCurl);
+            _context.Exercises.AddRange(squat, legKickback, hipThrustEx, lunges, calfRaise, legCurlEx, legExtension, legPressEx, hipAbduction, hipAdduction);
+            _context.Exercises.AddRange(treadmillEx, bikeEx, ellipseEx, stairsEx, rowingEx);
+            _context.SaveChanges();
+
+
+            //exercise to muscle/equip relations
+            EquipDAL[] barDum = new[] { barbell, dumbbell };
+
+            neckExt.PrimaryMuscleList.Add(neck);
+            neckExt.EquipList.AddRange(new[] { bench, weightPlate });
+
+            shrugs.PrimaryMuscleList.Add(trap);
+            shrugs.SecondaryMuscleList.AddRange(new[] { neck, infraspin, forearm });
+            shrugs.EquipList.AddRange(barDum);
+
+            frontDeltRaise.PrimaryMuscleList.Add(frontDelt);
+            frontDeltRaise.SecondaryMuscleList.Add(sideDelt);
+            frontDeltRaise.EquipList.AddRange(barDum);
+            frontDeltRaise.EquipList.Add(weightPlate);
+
+            shoulderPress.PrimaryMuscleList.AddRange(new[] { frontDelt, sideDelt });
+            shoulderPress.SecondaryMuscleList.AddRange(new[] { pecs, triceps });
+            shoulderPress.EquipList.AddRange(new[] { barbell, dumbbell, smith, shoulderMachine, bench });
+
+            sideDeltRaise.PrimaryMuscleList.Add(sideDelt);
+            sideDeltRaise.SecondaryMuscleList.AddRange(new[] {frontDelt, rearDelt, trap, infraspin});
+            sideDeltRaise.EquipList.AddRange(new[] { dumbbell, deltMachine, crossover });
+
+            uprightRow.PrimaryMuscleList.AddRange(new[] { trap, sideDelt });
+            uprightRow.SecondaryMuscleList.AddRange(new[] { frontDelt, rearDelt });
+            uprightRow.EquipList.AddRange(barDum);
+
+            reverseFly.PrimaryMuscleList.AddRange(new[] { rearDelt, infraspin });
+            reverseFly.SecondaryMuscleList.Add(trap);
+            reverseFly.EquipList.AddRange(new[] {dumbbell, pecFly });
+
+            bentOverRow.PrimaryMuscleList.AddRange(new[] { lats, trap, infraspin });
+            bentOverRow.SecondaryMuscleList.AddRange(new[] { rearDelt, forearm });
+            bentOverRow.EquipList.Add(landmine);
+            bentOverRow.EquipList.AddRange(barDum);
+
+            cableHighPull.PrimaryMuscleList.AddRange(new[] {rearDelt, infraspin });
+            cableHighPull.SecondaryMuscleList.Add(trap);
+            cableHighPull.EquipList.Add(crossover);
+
+            pullUp.PrimaryMuscleList.Add(lats);
+            pullUp.SecondaryMuscleList.AddRange(new[] { biceps, infraspin, rearDelt, forearm });
+            pullUp.EquipList.Add(chinUp);
+
+            deadlift.PrimaryMuscleList.AddRange(new[] { glute, lowBack });
+            deadlift.SecondaryMuscleList.AddRange(new[] { hamstring, forearm, trap });
+            deadlift.EquipList.Add(barbell);
+
+            hyperextension.PrimaryMuscleList.AddRange(new[] { lowBack, glute });
+            hyperextension.SecondaryMuscleList.Add(hamstring);
+            hyperextension.EquipList.AddRange(new[] { romanBench, backMachine });
+
+            lowRow.PrimaryMuscleList.AddRange(new[] { lats, trap, rearDelt });
+            lowRow.SecondaryMuscleList.AddRange(new[] { biceps, forearm, infraspin });
+            lowRow.EquipList.Add(row);
+
+            pullDown.PrimaryMuscleList.Add(lats);
+            pullDown.SecondaryMuscleList.AddRange(new[] {infraspin, rearDelt, forearm, biceps });
+            pullDown.EquipList.Add(pulldown);
+
+            chestPressEx.PrimaryMuscleList.AddRange(new[] { pecs, frontDelt });
+            chestPressEx.SecondaryMuscleList.Add(triceps);
+            chestPressEx.EquipList.AddRange(new[] { bench, benchPressItem, dumbbell, barbell, chestPress, smith });
+
+            dip.PrimaryMuscleList.AddRange(new[] { pecs, triceps });
+            dip.SecondaryMuscleList.Add(frontDelt);
+            dip.EquipList.AddRange(new[] { seatedDip, legRaise });
+
+            pecFlyEx.PrimaryMuscleList.Add(pecs);
+            pecFlyEx.SecondaryMuscleList.Add(frontDelt);
+            pecFlyEx.EquipList.AddRange(new[] { pecFly, dumbbell });
+
+            pushUp.PrimaryMuscleList.AddRange(new[] { triceps, pecs, frontDelt });
+            pushUp.SecondaryMuscleList.Add(abs);
+            pushUp.EquipList.Add(mat);
+
+            tricepsKickback.PrimaryMuscleList.Add(triceps);
+            tricepsKickback.SecondaryMuscleList.Add(rearDelt);
+            tricepsKickback.EquipList.Add(dumbbell);
+
+            ropePushdown.PrimaryMuscleList.Add(triceps);
+            ropePushdown.EquipList.AddRange(new[] { crossover, tricepsMachine });
+
+            skullCrusher.PrimaryMuscleList.Add(triceps);
+            skullCrusher.EquipList.AddRange(barDum);
+            skullCrusher.EquipList.Add(bench);
+
+            overheadExtension.PrimaryMuscleList.Add(triceps);
+            overheadExtension.EquipList.AddRange(new[] { bench, dumbbell });
+
+            obliqueTwist.PrimaryMuscleList.Add(obliques);
+            obliqueTwist.SecondaryMuscleList.Add(abs);
+            obliqueTwist.EquipList.AddRange(new[] { mat, obliqMachine });
+
+            legRaiseEx.PrimaryMuscleList.Add(abs);
+            legRaiseEx.SecondaryMuscleList.AddRange(new[] { obliques, quad });
+            legRaiseEx.EquipList.AddRange(new[] { mat, legRaise });
+
+            sideBend.PrimaryMuscleList.Add(obliques);
+            sideBend.SecondaryMuscleList.Add(abs);
+            sideBend.EquipList.AddRange(new[] { crossover, dumbbell });
+
+            crunch.PrimaryMuscleList.Add(abs);
+            crunch.SecondaryMuscleList.Add(obliques);
+            crunch.EquipList.AddRange(new[] { mat, absMachine, ball });
+
+            plank.PrimaryMuscleList.Add(abs);
+            plank.SecondaryMuscleList.AddRange(new[] {obliques, hamstring});
+            plank.EquipList.Add(mat);
+
+            reverseCurl.PrimaryMuscleList.Add(forearm);
+            reverseCurl.SecondaryMuscleList.Add(biceps);
+            reverseCurl.EquipList.Add(crossover);
+            reverseCurl.EquipList.AddRange(barDum);
+
+            wristRoll.PrimaryMuscleList.Add(forearm);
+            wristRoll.EquipList.AddRange(barDum);
+            wristRoll.EquipList.Add(bench);
+
+            bicepCurl.PrimaryMuscleList.Add(biceps);
+            bicepCurl.SecondaryMuscleList.Add(forearm);
+            bicepCurl.EquipList.AddRange(new[] {dumbbell, barbell, crossover, bench, preacherMachine, preacherStand});
+
+            squat.PrimaryMuscleList.AddRange(new[] { quad, glute });
+            squat.SecondaryMuscleList.AddRange(new[] { hamstring, calves, heart, adductor });
+            squat.EquipList.AddRange(new[] {squatRack, smith, hack, dumbbell, barbell});
+
+            legKickback.PrimaryMuscleList.AddRange(new[] { glute, hamstring });
+            legKickback.SecondaryMuscleList.Add(heart);
+            legKickback.EquipList.AddRange(new[] { crossover, kickbackMachine, gluteMachine });
+
+            hipThrustEx.PrimaryMuscleList.Add(glute);
+            hipThrustEx.SecondaryMuscleList.AddRange(new[] {hamstring, adductor});
+            hipThrustEx.EquipList.AddRange(new[] { hipThrust, bench, mat, barbell });
+
+            lunges.PrimaryMuscleList.AddRange(new[] { glute, quad });
+            lunges.SecondaryMuscleList.AddRange(new[] { hamstring, adductor, heart });
+            lunges.EquipList.Add(dumbbell);
+
+            calfRaise.PrimaryMuscleList.Add(calves);
+            calfRaise.EquipList.AddRange(new[] { calveMachine, dumbbell });
+
+            legCurlEx.PrimaryMuscleList.Add(hamstring);
+            legCurlEx.SecondaryMuscleList.Add(calves);
+            legCurlEx.EquipList.Add(legCurl);
+
+            legExtension.PrimaryMuscleList.Add(quad);
+            legExtension.EquipList.Add(legExt);
+
+            legPressEx.PrimaryMuscleList.AddRange(new[] { glute, quad });
+            legPressEx.SecondaryMuscleList.AddRange(new[] { hamstring, adductor, calves, heart });
+            legPressEx.EquipList.Add(legPress);
+
+            hipAbduction.PrimaryMuscleList.Add(abductor);
+            hipAbduction.SecondaryMuscleList.Add(glute);
+            hipAbduction.EquipList.AddRange(new[] { crossover, abdAdd, totalHip });
+
+            hipAdduction.PrimaryMuscleList.Add(adductor);
+            hipAdduction.EquipList.AddRange(new[] { abdAdd, crossover, totalHip });
+
+            treadmillEx.PrimaryMuscleList.AddRange(new[] {heart, quad});
+            treadmillEx.SecondaryMuscleList.AddRange(new[] { calves, hamstring });
+            treadmillEx.EquipList.Add(treadmill);
+
+            bikeEx.PrimaryMuscleList.AddRange(new[] { heart, calves, quad });
+            bikeEx.SecondaryMuscleList.Add(glute);
+            bikeEx.EquipList.Add(bike);
+
+            ellipseEx.PrimaryMuscleList.AddRange(new[] { heart, hamstring, glute });
+            ellipseEx.SecondaryMuscleList.AddRange(new[] { calves, quad });
+            ellipseEx.EquipList.Add(ellipse);
+
+            stairsEx.PrimaryMuscleList.AddRange(new[] { heart, quad, glute, calves });
+            stairsEx.SecondaryMuscleList.AddRange(new[] { hamstring, adductor });
+            stairsEx.EquipList.Add(climber);
+
+            rowingEx.PrimaryMuscleList.AddRange(new[] { heart, lats, quad });
+            rowingEx.SecondaryMuscleList.AddRange(new[] { abs, hamstring, rearDelt, biceps, calves });
+            rowingEx.EquipList.Add(rower);
+
+            _context.SaveChanges();
+
+
 
 
 
