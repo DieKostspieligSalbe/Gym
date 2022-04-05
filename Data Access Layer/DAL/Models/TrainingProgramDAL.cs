@@ -12,6 +12,7 @@ namespace DAL.DAL
         public List<UserDAL> Users { get; set; } = new();
         public List<MuscleDAL> MuscleList { get; set; } = new();
         public List<ExerciseDAL> ExerciseList { get; set; } = new();
+        
 
         public string Description { get; set; }
 

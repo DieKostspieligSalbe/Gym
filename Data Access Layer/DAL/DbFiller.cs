@@ -108,6 +108,7 @@ namespace DAL.DAL
 
 
             //add muscles to db
+            _context.Database.EnsureCreated();
             _context.Muscles.AddRange(neck, trap, frontDelt, sideDelt, rearDelt, infraspin, lats, lowBack, obliques, abs, pecs, heart);
             _context.Muscles.AddRange(biceps, triceps, forearm, glute, quad, hamstring, adductor, abductor, calves);
             _context.SaveChanges();
@@ -682,63 +683,6 @@ namespace DAL.DAL
             rowingEx.EquipList.Add(rower);
 
             _context.SaveChanges();
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
-
-
     }
 }
