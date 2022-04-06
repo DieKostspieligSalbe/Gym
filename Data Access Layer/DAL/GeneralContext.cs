@@ -9,6 +9,7 @@ namespace DAL.DAL
     {
         public GeneralContext()
         {
+            Database.EnsureCreated();
         }
 
         public GeneralContext(DbContextOptions<GeneralContext> options)
@@ -17,7 +18,6 @@ namespace DAL.DAL
         }
 
         public DbSet<UserDAL> Users { get; set; } = null!;
-        public DbSet<UserProfileDAL> UserProfiles { get; set; } = null!;
         public DbSet<TrainingProgramDAL> TrainingPrograms { get; set; }
         public DbSet<MuscleDAL> Muscles { get; set; }
         public DbSet<ExerciseDAL> Exercises { get; set; }
@@ -28,7 +28,7 @@ namespace DAL.DAL
             string connectionString = ConnectionConfiguring();
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(connectionString);
+                optionsBuilder.UseSqlServer(connectionString, b => b.MigrationsAssembly("Gym"));
             }
             optionsBuilder.LogTo(message => System.Diagnostics.Debug.WriteLine(message), Microsoft.Extensions.Logging.LogLevel.Information);
         }
@@ -37,40 +37,35 @@ namespace DAL.DAL
         {
             modelBuilder.Entity<UserDAL>()
                 .HasMany(u => u.ProgramList)
-                .WithMany(p => p.Users);
+                .WithMany(p => p.Users)
+                .UsingEntity(j => j.ToTable("UsersPrograms"));
 
             modelBuilder.Entity<TrainingProgramDAL>()
                 .HasMany(t => t.MuscleList)
-                .WithMany(m => m.InvolvedInPrograms);
+                .WithMany(m => m.InvolvedInPrograms)
+                .UsingEntity(j => j.ToTable("MusclesPrograms"));
+
 
             modelBuilder.Entity<TrainingProgramDAL>()
                 .HasMany(t => t.ExerciseList)
-                .WithMany(e => e.UsedInPrograms);
-
-            modelBuilder.Entity<MuscleDAL>()
-                .HasMany(m => m.PrimaryExList)
-                .WithMany(e => e.PrimaryMuscleList);
-
-            modelBuilder.Entity<MuscleDAL>()
-                .HasMany(m => m.SecondaryExList)
-                .WithMany(e => e.SecondaryMuscleList);
+                .WithMany(e => e.UsedInPrograms)
+                .UsingEntity(j => j.ToTable("ExercisesPrograms"));
 
             modelBuilder.Entity<ExerciseDAL>()
-                .HasMany(e => e.MachineList)
-                .WithMany(m => m.ExercisesList);
+                .HasMany(e => e.EquipList)
+                .WithMany(eq => eq.ExercisesList)
+                .UsingEntity(j => j.ToTable("ExercisesEquip"));
 
-            modelBuilder.Entity<EquipDAL>()
-                .HasMany(m => m.PrimaryMusclesList)
-                .WithMany(m => m.PrimaryMachineList);
+            modelBuilder.Entity<ExerciseDAL>()
+                .HasMany(e => e.PrimaryMuscleList)
+                .WithMany(m => m.PrimaryExList)
+                .UsingEntity(j => j.ToTable("ExerciseMusclePrimary"));
 
-            modelBuilder.Entity<EquipDAL>()
-                .HasMany(m => m.SecondaryMusclesList)
-                .WithMany(m => m.SecondaryMachineList);
+            modelBuilder.Entity<ExerciseDAL>()
+                .HasMany(e => e.SecondaryMuscleList)
+                .WithMany(m => m.SecondaryExList)
+                .UsingEntity(j => j.ToTable("ExerciseMuscleSecondary"));
 
-            modelBuilder.Entity<UserDAL>()
-                .HasOne(u => u.UserProfile)
-                .WithOne(p => p.User)
-                .HasForeignKey<UserProfileDAL>(p => p.UserId);
         }
 
         protected string ConnectionConfiguring()

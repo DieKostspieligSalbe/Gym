@@ -13,7 +13,7 @@ namespace DAL.DAL
         public string Password { get; set; }
 
         public List<TrainingProgramDAL> ProgramList { get; set; } = new();
-        public UserProfileDAL UserProfile { get; set; }
+
     }
 
    

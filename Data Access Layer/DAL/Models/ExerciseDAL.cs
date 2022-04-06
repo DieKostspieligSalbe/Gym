@@ -14,7 +14,7 @@ namespace DAL.DAL
         public List<MuscleDAL> PrimaryMuscleList { get; set; } = new();
         public List<MuscleDAL> SecondaryMuscleList { get; set; } = new();
 
-        public List<EquipDAL> MachineList { get; set; } = new();
+        public List<EquipDAL> EquipList { get; set; } = new();
         public List<TrainingProgramDAL> UsedInPrograms { get; set; } = new();
 
         public string ImageLink { get; set; }

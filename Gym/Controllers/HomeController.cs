@@ -1,4 +1,6 @@
-﻿using Gym.Models;
+﻿using DAL.DAL;
+using Gym.Models;
+using Gym.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,16 +15,42 @@ namespace Gym.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly GeneralContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, GeneralContext context)
         {
             _logger = logger;
+            _context = context;
         }
+
         [HttpGet]
         public IActionResult Index()
         {
+            DbFiller dbFiller = new(_context);
+            dbFiller.FillDatabase();
             return View(); //will be the main page with muscle layout perhaps
         }
+
+
+        //[HttpGet]
+        //[Route("ProcessMuscleClick")]
+        //public IActionResult ProcessMuscleClick(int id)
+        //{
+        //    var sentMuscle = MuscleStorage.muscleList.FirstOrDefault(x => x.MuscleType == (MuscleType)id);
+        //    var selectedMuscle = SelectedMuscleStorage.muscleList.FirstOrDefault(x => x == sentMuscle);
+        //    if (selectedMuscle is null)
+        //    {
+        //        SelectedMuscleStorage.muscleList.Add(sentMuscle);
+        //    }
+        //    else
+        //    {
+        //        SelectedMuscleStorage.muscleList.Remove(sentMuscle);
+        //    }
+        //    return PartialView("SelectedMuscles", SelectedMuscleStorage.muscleList);
+        //}
+
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

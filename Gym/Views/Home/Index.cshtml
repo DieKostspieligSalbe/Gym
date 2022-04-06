@@ -1,53 +1,83 @@
-﻿@{
+﻿@using DAL.DAL
+@{
     ViewData["Title"] = "Home Page";
 }
+
+
 
 
 <div class="home_main_container">
     <div class="home_vertical_left">
         <div class="muscle_buttons">
-            <span>Select the muscles you want to buff:</span>
+            <span class="main_span">Select the muscles you want to buff:</span>
             <div id="body_wrapper" class="muscles">
-             @Html.Raw(System.IO.File.ReadAllText("wwwroot/html/Human_front.svg"))
-             @Html.Raw(System.IO.File.ReadAllText("wwwroot/html/Human_back.svg")) 
-             </div>
+             @await Html.PartialAsync("Human_front")
+             @await Html.PartialAsync("Human_back")
             <!--add onHover and pop-up windows with descr to those above-->
+            </div>
         </div>
-        <div class="selected_muscles">
-            <span>Selected muscles:</span>
-            @{
-                //here will be an injection which displays indicators for all muscles selected}
-             }
-             <form>
-                 <button>Pect</button>
-                 <button>Latissimus dorsi</button>
-                 <button>Side Delt</button>
-             </form>
+        <div>
+            <span class="main_span">Selected muscles:</span>
+            <div id="selected_muscles" class="selected_muscles"> 
+                <!--JS generates buttons accordingly to selected muscles here-->
+            </div>
         </div>
     </div>
 
     <div class="home_vertical_right">
         <div class="intensity">
             <!--Training intensity selection-->
-            <span>Select your trainings intensity:</span>
+            <span class="main_span">Select your preferred training split:</span>
             <form>
-                <button>Lazy</button>
-                <button>Some efforts</button>
-                <button>Gym bro</button>
-                <button>Monster</button>
+                <button>Full Body</button>
+                <button>Upper/Lower</button>
+                <button>Push/Pull/Leg</button>
             </form>
         </div>
+
+        <div class="submit">
+            <button>Submit</button>
+        </div>
+
+
         <div class="week">
-            <span>Your weekly training plan:</span>
-            <img src="https://i5.walmartimages.com/asr/46e0bf6a-4e36-4aa0-bbff-c9afdeb94373.4821d21524a4320baa888891866710d7.jpeg" alt=""/>
+            <span class="main_span">Your weekly training plan:</span>
+            <div class="week-days">
+                <div class="day-container"> 
+
+                </div>
+                 <div class="day-container">
+
+                </div>
+                 <div class="day-container">
+
+                </div>
+                 <div class="day-container">
+
+                </div>
+                 <div class="day-container">
+
+                </div>
+                 <div class="holiday-container">
+
+                </div>
+                 <div class="holiday-container">
+
+                </div>
+            </div>
         </div>
+        
         <div class="training_options">
-            <span>Training program options:</span>
-            <form>
-                <text>Program name</text>
+            <div><span class="main_span">Training program options:</span></div>
+            <div class="training_options_1">
+                <label>Program name:</label>
+                <input type="text"/>
+                <input type="checkbox" name="make_public" value="Make public"/>
+                <label for="make_public">Make public</label>
+            </div>
+            <div class="training_options_2">     
                 <button>Save</button>
-                <checkbox>Make public</checkbox>
-            </form>
+            </div>    
         </div>
     </div>
 </div>

@@ -1,15 +1,12 @@
-﻿using System;
+﻿using DAL.DAL;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
-namespace DAL.DAL
+namespace Gym.Models
 {
-    public class TrainingProgramDAL
+    public class TrainingProgramViewModel
     {
-        [Required]
         public int Id { get; set; }
         public int Name { get; set; }
-        public List<UserDAL> Users { get; set; } = new();
         public List<MuscleDAL> MuscleList { get; set; } = new();
         public List<ExerciseDAL> ExerciseList { get; set; } = new();
 
@@ -17,8 +14,6 @@ namespace DAL.DAL
 
         public int Intensity { get; set; }
         public bool IsPublic { get; set; }
-
+        public string Creator { get; set; }
     }
-
-
 }

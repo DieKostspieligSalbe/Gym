@@ -11,11 +11,11 @@
     margin: 0;
 }
 
-.muscle--hover {
+.muscle--hover path {
     fill: red;
 }
 
-.muscle--open {
+.muscle--open path {
     fill:red;
 }
 

@@ -6,11 +6,15 @@ html,
 body {
     height: 100%;
 }
+a {
+    color: white !important;
+}
 
 body {
     margin: 0;
     overflow-x: hidden;
     width: 100%;
+    /*padding: 0 5%;*/
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -81,10 +85,20 @@ body {
     margin: 10px;
 }
 
+
+.home_main_container div {
+    text-align: center;
+}
+
 .home_main_container span {
     text-align: center;
     align-content: center;
-    font-size: 25px;
+    font-size: 27px;
+    font-weight: 600;
+    color: #3E3E3E;
+    margin: 0px;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .home_main_container button {
@@ -102,7 +116,86 @@ body {
     flex-wrap:wrap;
 }
 
+.week-days {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
 
+.week .week-days .day-container {
+    background-color: gainsboro;
+    border: 1px black solid;
+    min-height: 300px;
+} 
+
+.week .week-days .holiday-container {
+    background-color: mistyrose;
+    border: 1px black solid;
+    min-height: 300px;
+
+}
+
+.day {
+    font-size: 15px;
+}
+
+.selected_muscles {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.selected-div {
+    background-color: red;
+    color: white;
+    border: hidden;
+    border-radius: 25px;
+    margin-right: 10px;
+    margin-top: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    font-size: 20px;
+}
+
+.close {
+    color: white;
+    cursor: pointer;
+    margin-left: 15px;
+    padding-right: 8px;
+    padding-top: 2px;
+}
+
+.home_main_container .home_vertical_right .submit {
+    display: flex;
+    flex-grow: 1;
+    text-align: center;
+    align-content: center;
+}
+.home_main_container .home_vertical_right .submit button {
+    background-color: lawngreen;    
+    flex-direction: row;
+    flex-grow: 1;
+    text-align: center;
+    align-content: center;
+}
+
+.training_options {
+    display: flex;
+    flex-direction: column;
+}
+
+.training_options_2 {
+    display: flex;
+    flex-direction: row;
+}
+
+.training_options_2 button {
+    flex-grow: 1;
+    text-align: center;
+    align-content: center;
+}
 
 
 
