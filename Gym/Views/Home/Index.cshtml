@@ -28,15 +28,14 @@
         <div class="intensity">
             <!--Training intensity selection-->
             <span class="main_span">Select your preferred training split:</span>
-            <form>
+            <form asp-controller="Home" asp-action="ProcessMuscleSubmit">
                 <button>Full Body</button>
                 <button>Upper/Lower</button>
                 <button>Push/Pull/Leg</button>
+                <div class="submit">
+                     <button>Submit</button>
+                </div>
             </form>
-        </div>
-
-        <div class="submit">
-            <button>Submit</button>
         </div>
 
 

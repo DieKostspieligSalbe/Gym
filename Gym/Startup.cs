@@ -32,7 +32,7 @@ namespace Gym
                 {
                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Home/Index");
                });
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<GeneralContext>(options =>

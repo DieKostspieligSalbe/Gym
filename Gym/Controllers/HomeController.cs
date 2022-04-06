@@ -1,8 +1,10 @@
-﻿using DAL.DAL;
+﻿using BL;
+using DAL.DAL;
 using Gym.Models;
 using Gym.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -26,28 +28,24 @@ namespace Gym.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            DbFiller dbFiller = new(_context);
-            dbFiller.FillDatabase();
-            return View(); //will be the main page with muscle layout perhaps
+            //DbFiller dbFiller = new(_context);
+            //dbFiller.FillDatabase();
+            return View();
         }
 
 
-        //[HttpGet]
-        //[Route("ProcessMuscleClick")]
-        //public IActionResult ProcessMuscleClick(int id)
-        //{
-        //    var sentMuscle = MuscleStorage.muscleList.FirstOrDefault(x => x.MuscleType == (MuscleType)id);
-        //    var selectedMuscle = SelectedMuscleStorage.muscleList.FirstOrDefault(x => x == sentMuscle);
-        //    if (selectedMuscle is null)
-        //    {
-        //        SelectedMuscleStorage.muscleList.Add(sentMuscle);
-        //    }
-        //    else
-        //    {
-        //        SelectedMuscleStorage.muscleList.Remove(sentMuscle);
-        //    }
-        //    return PartialView("SelectedMuscles", SelectedMuscleStorage.muscleList);
-        //}
+        [HttpPost]
+        [Route("ProcessMuscleSubmit")]
+        public IActionResult ProcessMuscleSubmit()
+        {
+            int[] testIdList = new[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+            int[] testList = new[] {9, 10, 11};
+
+            TrainingProgramBuilder builder = new(_context);
+            var result = builder.Calculate(testIdList, 1);
+            string json = JsonConvert.SerializeObject(result);
+            return Json(json);
+        }
 
 
 

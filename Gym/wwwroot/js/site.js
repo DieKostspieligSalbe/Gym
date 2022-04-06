@@ -48,55 +48,43 @@ const handleSubmit = () => {
 
 //$(function () {
 //    const bodyWrapper = document.getElementById("body_wrapper")
-    
+
 //    const handleMuscleMouseDown = (e) => {
 //        console.log(e.target);
 //        handleSubmit()
 //        $.ajax({
 //            type: "GET",
-//            url: "home/wowinvalidurl",
-//            data: { Id: e.target.parentNode.dataset.muscleId},
+//            url: "home/ProcessMuscleSubmit",
+//            data: { selectedMuscleIds: selectedMuscleIds },
 //            success: function (data) {
 //                console.log(data);
-//                document.getElementById("selected_muscles").innerHTML = data
-//                muscleArray.push(e.target.parentNode.dataset.muscleId)
-//                Array.from(muscleArray).forEach(muscleId => console.log(muscleId))
 //            }
 //        });
 
 //    }
-//     bodyWrapper.addEventListener('mousedown', handleMuscleMouseDown)
-
-
-//   /* $(".muscle-clicked").click(function () {
-//        event.preventDefault();
-//        console.log("Click-muscle class was clicked");*/
+//    bodyWrapper.addEventListener('mousedown', handleMuscleMouseDown)
+//});
 
 
 
-       
-//    });
+    //const handleMuscleHover = (e) => {
 
+    //    const hovMuscle = e.target.parentNode
+    //    const hovMuscleInstances = document.querySelectorAll(`[data-muscle=${hovMuscle.dataset.muscle}] path`)
+    //    Array.from(hovMuscleInstances)
+    //        .forEach(muscle => muscle.classList.toggle('muscle--hover'))
+    //}
 
+    //const handleMuscleClick = (e) => {
+    //    const hovMuscle = e.target.parentNode
+    //    console.log("clicked node is", hovMuscle)
+    //    const hovMuscleInstances = document.querySelectorAll(`[data-muscle=${hovMuscle.dataset.muscle}] path`)
+    //    console.log(hovMuscleInstances)
+    //    Array.from(hovMuscleInstances).forEach(muscle => muscle.classList.toggle('muscle--open'))
+    //}
 
-//const handleMuscleHover = (e) => {
+    //bodyWrapper.addEventListener('mouseover', handleMuscleHover)
+    //bodyWrapper.addEventListener('mouseout', handleMuscleHover)
 
-//    const hovMuscle = e.target.parentNode
-//    const hovMuscleInstances = document.querySelectorAll(`[data-muscle=${hovMuscle.dataset.muscle}] path`)
-//    Array.from(hovMuscleInstances)
-//        .forEach(muscle => muscle.classList.toggle('muscle--hover'))
-//}
-
-//const handleMuscleClick = (e) => {
-//    const hovMuscle = e.target.parentNode
-//    console.log("clicked node is", hovMuscle)
-//    const hovMuscleInstances = document.querySelectorAll(`[data-muscle=${hovMuscle.dataset.muscle}] path`)
-//    console.log(hovMuscleInstances)
-//    Array.from(hovMuscleInstances).forEach(muscle => muscle.classList.toggle('muscle--open'))
-//}
-
-//bodyWrapper.addEventListener('mouseover', handleMuscleHover)
-//bodyWrapper.addEventListener('mouseout', handleMuscleHover)
-
-//bodyWrapper.addEventListener('mousedown', handleMuscleClick)
+    //bodyWrapper.addEventListener('mousedown', handleMuscleClick)
 

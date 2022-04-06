@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\Data Access Layer\DAL.csproj" />
   </ItemGroup>
 
 </Project>
