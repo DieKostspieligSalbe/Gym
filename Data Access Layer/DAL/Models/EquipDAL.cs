@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Gym.Common.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DAL.DAL
+namespace Gym.DAL.Models
 {
     public class EquipDAL
     {
@@ -10,7 +11,7 @@ namespace DAL.DAL
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }   
-        public List<ExerciseDAL> ExercisesList { get; set; } = new();
+        public List<ExerciseDAL> ExercisesList { get; set; }
 
         public string ImageLink { get; set; }
         public string Description { get; set; }

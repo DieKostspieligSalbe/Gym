@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>DAL</RootNamespace>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>Gym.DAL</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +15,10 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.NewtonsoftJson" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Gym.Common.csproj" />
   </ItemGroup>
 
 </Project>

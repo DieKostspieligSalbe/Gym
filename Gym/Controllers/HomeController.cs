@@ -1,7 +1,6 @@
-﻿using BL;
-using DAL.DAL;
-using Gym.Models;
-using Gym.Services;
+﻿using Gym.BL;
+using Gym.DAL;
+using Gym.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;

@@ -1,5 +1,4 @@
-using DAL.DAL;
-using Gym.Services;
+using Gym.DAL;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

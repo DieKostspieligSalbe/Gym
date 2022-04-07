@@ -2,8 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using Gym.DAL.Models;
 
-namespace DAL.DAL
+namespace Gym.DAL
 {
     public class GeneralContext : DbContext
     {

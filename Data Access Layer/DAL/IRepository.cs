@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DAL.DAL
+namespace Gym.DAL
 {
     public interface IRepository<T> : IDisposable where T: class
     {

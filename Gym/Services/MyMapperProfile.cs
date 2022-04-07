@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using DAL.DAL;
-using Gym.Models;
+using Gym.DAL.Models;
+using Gym.MVC.Models;
 
-namespace Gym.Services
+namespace Gym.MVC.Services
 {
     public class MyMapperProfile : Profile
     {

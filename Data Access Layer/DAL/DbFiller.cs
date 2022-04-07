@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Gym.Common.Enum;
+using Gym.DAL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.DAL
+namespace Gym.DAL
 {
     public class DbFiller //this fills the database with everything needed
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.DAL
+namespace Gym.Common.Enum
 {
     public enum EquipType
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DAL.DAL
+namespace Gym.Common.Enum
 {
     public enum MuscleType
     {

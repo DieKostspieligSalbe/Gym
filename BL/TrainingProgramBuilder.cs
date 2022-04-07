@@ -1,10 +1,11 @@
-﻿using BL.Models;
-using DAL.DAL;
+﻿using Gym.Common.Enum;
+using Gym.DAL;
+using Gym.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Numerics;
 
-namespace BL
+namespace Gym.BL
 {
     public class TrainingProgramBuilder
     {
@@ -24,6 +25,7 @@ namespace BL
 
             foreach (int id in idList)
             {
+                //nullcheck
                 MuscleListToWork.Add(_context.Muscles.FirstOrDefault(m => (int)m.MuscleType == id)); //how to deal with it better
             }
 
@@ -75,7 +77,7 @@ namespace BL
         private List<ExerciseDAL> GetMinimumCompoundList()//this function is supposed to cover all the selected muscles with mostly compound exercises
         {          
             List<ExerciseDAL> compoundExercises = new();
-            List<MuscleDAL> musclesUnprocessed = MuscleListToWork.ToList();
+            List<MuscleDAL> musclesUnprocessed = MuscleListToWork.ToList(); //or addrange
             List<MuscleDAL> musclesToRemove = new();
             List<ExerciseDAL> exercisesUnprocessed = DbExercises.ToList(); //is it ref and if to list helps
 
@@ -86,11 +88,13 @@ namespace BL
                 exercisesUnprocessed.RemoveAll(e => e.PrimaryMuscleList.Contains(heart));
             }
 
+
             MuscleDAL loopedMuscle;
             List<ExerciseDAL> foundExercises = new();
 
             List<MuscleDAL> unionList = new();
             List<MuscleDAL> intersectionList = new();
+
 
             //this loop looks for the fattest essential compounds
             for (int i = 0; i < musclesUnprocessed.Count; i++)
@@ -157,7 +161,7 @@ namespace BL
             List<MuscleDAL> primaryMusclesFromChosenExercises = new();
             List<ExerciseDAL> resultExerciseList = new();
 
-            ExerciseDAL foundExercise = null; //is it bad?
+            ExerciseDAL foundExercise; //is it bad?
             MuscleDAL loopedMuscle;
             List<MuscleDAL> intersectionList = new();
 
@@ -171,7 +175,7 @@ namespace BL
             for (int i = 0; i < musclesWithoutPrimary.Count; i++)
             {
                 loopedMuscle = musclesWithoutPrimary[i];
-                foundExercise = exercisesUnprocessed.FirstOrDefault(e => e.PrimaryMuscleList.Contains(loopedMuscle));
+                foundExercise = exercisesUnprocessed.FirstOrDefault(e => e.PrimaryMuscleList.Contains(loopedMuscle)); //nullcheck
                 if (foundExercise is not null)
                 {
                     intersectionList = foundExercise.PrimaryMuscleList.Intersect(musclesWithoutPrimary).ToList();

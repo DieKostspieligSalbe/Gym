@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+	<RootNamespace>Gym.MVC</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BL\BL.csproj" />
-    <ProjectReference Include="..\Data Access Layer\DAL.csproj" />
+    <ProjectReference Include="..\BL\Gym.BL.csproj" />
+    <ProjectReference Include="..\Data Access Layer\Gym.DAL.csproj" />
   </ItemGroup>
 
   <ItemGroup>

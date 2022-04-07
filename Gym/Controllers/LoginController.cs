@@ -1,5 +1,4 @@
-﻿using Gym.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
@@ -7,10 +6,13 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using DAL.DAL;
 using AutoMapper;
+using Gym.DAL.Repositories;
+using Gym.DAL;
+using Gym.MVC.Models;
+using Gym.DAL.Models;
 
-namespace Gym.Controllers
+namespace Gym.MVC.Controllers
 {
     [Route("[controller]")]
     public class LoginController : Controller

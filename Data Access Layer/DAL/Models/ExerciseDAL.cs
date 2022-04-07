@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DAL.DAL
+namespace Gym.DAL.Models
 {
     public class ExerciseDAL
     {
@@ -11,12 +11,11 @@ namespace DAL.DAL
         [Required]
         public string Name { get; set; }
 
-        public List<MuscleDAL> PrimaryMuscleList { get; set; } = new();
-        public List<MuscleDAL> SecondaryMuscleList { get; set; } = new();
+        public List<MuscleDAL> PrimaryMuscleList { get; set; }
+        public List<MuscleDAL> SecondaryMuscleList { get; set; } 
 
         public List<EquipDAL> EquipList { get; set; } = new();
-        public List<TrainingProgramDAL> UsedInPrograms { get; set; } = new();
-
+        public List<TrainingProgramDAL> UsedInPrograms { get; set; } 
         public string ImageLink { get; set; }
         public string Description { get; set; }
 
