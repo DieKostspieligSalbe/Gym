@@ -39,11 +39,11 @@ namespace Gym.Controllers
         public IActionResult ProcessMuscleSubmit()
         {
             int[] testIdList = new[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
-            int[] testList = new[] {9, 10, 11};
+            int[] testList = new[] {7, 8, 13, 15, 18, 19};
 
             TrainingProgramBuilder builder = new(_context);
             var result = builder.Calculate(testIdList, 1);
-            string json = JsonConvert.SerializeObject(result);
+            string json = JsonConvert.SerializeObject(result); //how to deal with eternal loop
             return Json(json);
         }
 
