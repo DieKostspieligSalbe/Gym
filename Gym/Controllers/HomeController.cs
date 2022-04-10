@@ -45,6 +45,10 @@ namespace Gym.Controllers
 
             if (listSuccess && intensitySuccess)
             {
+                if (idList.Length == 0)
+                {
+                    return BadRequest("What did you expect?");
+                }
                 TrainingProgramBuilder builder = new();
                 var result = builder.Calculate(idList, intensity, out bool calcSuccess);
                 if (calcSuccess == false)

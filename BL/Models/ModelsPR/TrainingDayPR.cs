@@ -2,7 +2,7 @@
 
 namespace Gym.BL
 {
-    public class TrainingDay
+    public class TrainingDayPR
     {
         public List<ExercisePR> Exercises { get; set; }
         public string DayName { get; set; }

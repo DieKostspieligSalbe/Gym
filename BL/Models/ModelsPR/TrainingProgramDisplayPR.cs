@@ -2,7 +2,7 @@
 {
     public class TrainingProgramDisplayPR
     {
-        public List<TrainingDay> trainingDayList;
+        public List<TrainingDayPR> trainingDayList;
         public string DaysBetweenMessage { get; set; }
 
     }

@@ -27,7 +27,6 @@ namespace Gym.DAL
         }
         public List<ExerciseBL> GetExercises()
         {
-            using GeneralContext _context = new();
             List<ExerciseDAL> exUnmappedList = _context.Exercises.Include(e => e.PrimaryMuscleList).Include(e => e.SecondaryMuscleList).Include(e => e.EquipList).ToList();
             List<ExerciseBL> exMappedList = _mapper.Map<List<ExerciseDAL>, List<ExerciseBL>>(exUnmappedList);
             return exMappedList;
