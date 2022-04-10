@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Gym.Common.Enum;
 
@@ -25,6 +24,4 @@ namespace Gym.DAL.Models
         [StringLength(2000)]
         public string Description { get; set; }
     }
-
-
 }

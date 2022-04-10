@@ -1,9 +1,7 @@
-﻿@using DAL.DAL
+﻿@using Gym.DAL.Models
 @{
     ViewData["Title"] = "Home Page";
 }
-
-
 
 
 <div class="home_main_container">
@@ -28,13 +26,21 @@
         <div class="intensity">
             <!--Training intensity selection-->
             <span class="main_span">Select your preferred training split:</span>
-            <form asp-controller="Home" asp-action="ProcessMuscleSubmit">
-                <button>Full Body</button>
-                <button>Upper/Lower</button>
-                <button>Push/Pull/Leg</button>
-                <div class="submit">
-                     <button>Submit</button>
-                </div>
+            <form id="mainform">
+                <select id="program-type" name="intensity">
+                    <option value="1">
+                        Full Body
+                    </option>
+                      <option value="2">
+                        Upper/Lower
+                    </option>
+                      <option value="3">
+                        Push/Pull/Leg
+                    </option>
+                </select>
+            <div class="submit">
+                <button type="submit">Submit</button>
+            </div>
             </form>
         </div>
 

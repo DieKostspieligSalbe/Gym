@@ -5,10 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Gym.Controllers
 {
@@ -16,18 +13,16 @@ namespace Gym.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly GeneralContext _context;
 
         public HomeController(ILogger<HomeController> logger, GeneralContext context)
         {
             _logger = logger;
-            _context = context;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            //DbFiller dbFiller = new(_context);
+            //DbFiller dbFiller = new();
             //dbFiller.FillDatabase();
             return View();
         }
@@ -35,15 +30,32 @@ namespace Gym.Controllers
 
         [HttpPost]
         [Route("ProcessMuscleSubmit")]
-        public IActionResult ProcessMuscleSubmit()
+        public IActionResult ProcessMuscleSubmit([FromBody] MuscleSubmitModel args)
         {
-            int[] testIdList = new[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
-            int[] testList = new[] {7, 8, 13, 15, 18, 19};
+            bool listSuccess = true;
+            int[] idList = Array.ConvertAll(args.IdList, id => {
+                bool success = int.TryParse(id, out int result);
+                if (success == false)
+                {
+                    listSuccess = false;
+                }
+                return result;
+                });
+            bool intensitySuccess = int.TryParse(args.Intensity, out int intensity);
 
-            TrainingProgramBuilder builder = new(_context);
-            var result = builder.Calculate(testIdList, 1);
-            string json = JsonConvert.SerializeObject(result); //how to deal with eternal loop
-            return Json(json);
+            if (listSuccess && intensitySuccess)
+            {
+                TrainingProgramBuilder builder = new();
+                var result = builder.Calculate(idList, intensity, out bool calcSuccess);
+                if (calcSuccess == false)
+                {
+                    return BadRequest("Our database didn't manage to find what you wanted :(");
+                }
+                string json = JsonConvert.SerializeObject(result); //how to deal with eternal loop
+                return Ok(json);
+            }
+            else return BadRequest("The data sent was incorrect");
+
         }
 
 

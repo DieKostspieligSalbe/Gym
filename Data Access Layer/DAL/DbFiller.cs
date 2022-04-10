@@ -1,22 +1,11 @@
 ﻿using Gym.Common.Enum;
 using Gym.DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Gym.DAL
 {
     public class DbFiller //this fills the database with everything needed
     {
-        GeneralContext _context;
-
-        public DbFiller(GeneralContext context)
-        {
-            _context = context;
-        }
-
+        private GeneralContext _context;
         public void FillDatabase() 
         {
             //define muscles

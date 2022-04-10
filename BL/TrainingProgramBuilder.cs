@@ -3,30 +3,43 @@ using Gym.DAL;
 using Gym.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Numerics;
 
 namespace Gym.BL
 {
     public class TrainingProgramBuilder
     {
-        private readonly GeneralContext _context;
-        private List<MuscleDAL> MuscleListToWork = new();
-        private List<ExerciseDAL> DbExercises = new();
-        private List<ExerciseDAL> ResultingExercises = new();
+        private List<MuscleBL> MuscleListToWork;
+        private List<ExerciseBL> ResultingExercises;
 
-        public TrainingProgramBuilder(GeneralContext context)
+        private List<ExerciseBL> DbExercises;
+        private List<MuscleBL> DbMuscles;
+        private List<EquipBL> DbEquipment;
+
+        public TrainingProgramBuilder()
         {
-            _context = context;
+            GetDataFromDAL dataDAL = new();
+            DbExercises = dataDAL.GetExercises();
+            DbMuscles = dataDAL.GetMuscles();
+            DbEquipment = dataDAL.GetEquipment();
+            MuscleListToWork = new();//questionable
+            ResultingExercises = new();
         }
 
-        public List<string> Calculate(int[] idList, int intensity)
-        { 
-            DbExercises = _context.Exercises.Include(e => e.PrimaryMuscleList).Include(e => e.SecondaryMuscleList).ToList();
-
+        public List<string> Calculate(int[] idList, int intensity, out bool success)
+        {
+            MuscleBL? muscleBL;
             foreach (int id in idList)
             {
-                //nullcheck
-                MuscleListToWork.Add(_context.Muscles.FirstOrDefault(m => (int)m.MuscleType == id)); //how to deal with it better
+                muscleBL = DbMuscles.FirstOrDefault(m => (int)m.MuscleType == id);
+                if (muscleBL is null)
+                {
+                    success = false;
+                    return new List<string>(); //change to return resulting exercises later
+                }
+                else
+                {
+                    MuscleListToWork.Add(muscleBL);
+                }
             }
 
             switch (intensity)
@@ -49,14 +62,15 @@ namespace Gym.BL
             {
                 result.Add(ex.Name);
             }
+            success = true;
             return result;
             
         }
 
-        private List<ExerciseDAL> FullBodySplit()
+        private List<ExerciseBL> FullBodySplit()
         {
             int exerciseCount = 10;
-            List<ExerciseDAL> fullBodySplitExercises = new();
+            List<ExerciseBL> fullBodySplitExercises = new();
             
             fullBodySplitExercises = GetMinimumCompoundList(); //adds minimum compound exercises           
             fullBodySplitExercises = GetExercisesForMusclesWithoutPrimary(exerciseCount, fullBodySplitExercises); //adds primary exercises to muscles that don't have them
@@ -74,26 +88,27 @@ namespace Gym.BL
 
         }
 
-        private List<ExerciseDAL> GetMinimumCompoundList()//this function is supposed to cover all the selected muscles with mostly compound exercises
+        private List<ExerciseBL> GetMinimumCompoundList()//this function is supposed to cover all the selected muscles with mostly compound exercises
         {          
-            List<ExerciseDAL> compoundExercises = new();
-            List<MuscleDAL> musclesUnprocessed = MuscleListToWork.ToList(); //or addrange
-            List<MuscleDAL> musclesToRemove = new();
-            List<ExerciseDAL> exercisesUnprocessed = DbExercises.ToList(); //is it ref and if to list helps
+            List<ExerciseBL> compoundExercises = new();
+            List<MuscleBL> musclesToRemove = new();
+            List<MuscleBL> musclesUnprocessed = new();
+            musclesUnprocessed.AddRange(MuscleListToWork);
+            List<ExerciseBL> exercisesUnprocessed = new();
+            exercisesUnprocessed.AddRange(DbExercises); 
 
             //this excludes cardio exercises from selection list if heart is not selected as a muscle to train
-            MuscleDAL heart = _context.Muscles.FirstOrDefault(m => m.MuscleType == MuscleType.Heart);
-            if (!MuscleListToWork.Contains(heart))
+            MuscleBL? heart = DbMuscles.FirstOrDefault(m => m.MuscleType == MuscleType.Heart);
+            if (heart != null && !MuscleListToWork.Contains(heart))
             {
                 exercisesUnprocessed.RemoveAll(e => e.PrimaryMuscleList.Contains(heart));
             }
 
 
-            MuscleDAL loopedMuscle;
-            List<ExerciseDAL> foundExercises = new();
-
-            List<MuscleDAL> unionList = new();
-            List<MuscleDAL> intersectionList = new();
+            MuscleBL loopedMuscle;
+            List<ExerciseBL> foundExercises = new();
+            List<MuscleBL> unionList = new();
+            List<MuscleBL> intersectionList = new();
 
 
             //this loop looks for the fattest essential compounds
@@ -108,15 +123,19 @@ namespace Gym.BL
 
                 foreach (var foundExercise in foundExercises)
                 {
-                    intersectionList = musclesUnprocessed.Intersect(foundExercise.PrimaryMuscleList).ToList();
-                    if (intersectionList.Count > 1 && foundExercise.IsEssential)
+                    if (foundExercise is not null)
                     {
-                        compoundExercises.Add(foundExercise);
-                        musclesToRemove.AddRange(foundExercise.PrimaryMuscleList);
-                        musclesToRemove.AddRange(foundExercise.SecondaryMuscleList);
-                        exercisesUnprocessed.Remove(foundExercise);
-                        break;
-                    }             
+                        intersectionList = musclesUnprocessed.Intersect(foundExercise.PrimaryMuscleList).ToList();
+                        if (intersectionList.Count > 1 && foundExercise.IsEssential)
+                        {
+                            compoundExercises.Add(foundExercise);
+                            musclesToRemove.AddRange(foundExercise.PrimaryMuscleList);
+                            musclesToRemove.AddRange(foundExercise.SecondaryMuscleList);
+                            exercisesUnprocessed.Remove(foundExercise);
+                            break;
+                        }
+                    }
+                    continue;      
                 }   
             }
             musclesToRemove.Distinct(); //removes all muscles that were already processed in the first loop
@@ -148,22 +167,23 @@ namespace Gym.BL
             return compoundExercises;
         }
 
-        private List<ExerciseDAL> GetExercisesForMusclesWithoutPrimary(int maxExerciseAmount, List<ExerciseDAL> preparedExerciseList) //this function looks for primary exercises for muscles that don't have primary yet
+        private List<ExerciseBL> GetExercisesForMusclesWithoutPrimary(int maxExerciseAmount, List<ExerciseBL> preparedExerciseList) //this function looks for primary exercises for muscles that don't have primary yet
         {
             int amountOfExercisesToAdd = maxExerciseAmount - preparedExerciseList.Count;
             if (amountOfExercisesToAdd == 0)
             {
                 return preparedExerciseList;
             }
-            List<ExerciseDAL> exercisesUnprocessed = DbExercises.Except(preparedExerciseList).ToList();
-            List<MuscleDAL> muscleList = MuscleListToWork.ToList();
-            List<MuscleDAL> musclesWithoutPrimary = new();
-            List<MuscleDAL> primaryMusclesFromChosenExercises = new();
-            List<ExerciseDAL> resultExerciseList = new();
+            List<ExerciseBL> exercisesUnprocessed = DbExercises.Except(preparedExerciseList).ToList();
+            List<MuscleBL> musclesWithoutPrimary = new();
+            List<MuscleBL> primaryMusclesFromChosenExercises = new();
+            List<ExerciseBL> resultExerciseList = new();
+            List<MuscleBL> muscleList = new();
+            muscleList.AddRange(MuscleListToWork);
 
-            ExerciseDAL foundExercise; //is it bad?
-            MuscleDAL loopedMuscle;
-            List<MuscleDAL> intersectionList = new();
+            ExerciseBL? foundExercise; 
+            MuscleBL loopedMuscle;
+            List<MuscleBL> intersectionList = new();
 
             foreach (var exercise in preparedExerciseList) 
             {

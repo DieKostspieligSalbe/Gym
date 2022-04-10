@@ -4,13 +4,15 @@
 // Write your JavaScript code.
 const bodyWrapper = document.getElementById("body_wrapper")
 const selectedMusclesWrapper = document.getElementById("selected_muscles")
+const mainForm = document.getElementById("mainform")
 
 const handleMuscleActivation = (e) => {
   
     const hovMuscle = e.target.parentNode
     if(!hovMuscle.dataset.muscleId) return
     if (e.type === `mousedown`) {
-        console.log(hovMuscle.id)
+        console.log(hovMuscle)
+       // console.log(hovMuscle.id)
         if (hovMuscle.classList.contains(`muscle--open`)) {
 
             document.querySelector(`[data-remove-muscle="${hovMuscle.dataset.muscleId}"]`)?.parentNode.remove()
@@ -20,7 +22,6 @@ const handleMuscleActivation = (e) => {
     }
 
     const hovMuscleInstances = document.querySelectorAll(`[data-muscle-id="${hovMuscle.dataset.muscleId}"]`)
-    e.type === 'mousedown' && console.log(Array.from(hovMuscleInstances))
     Array.from(hovMuscleInstances).forEach(muscle => muscle.classList.toggle(e.type === 'mousedown' ? 'muscle--open' : 'muscle--hover'))
 }
 
@@ -33,17 +34,24 @@ const handleUnselectMuscle = (e) => {
     Array.from(selectedMuscleInstances).forEach(muscle => muscle.classList.toggle('muscle--open'))
 }
 
+const handleSubmit = async (e) => {
+    e.preventDefault()
+    const intensity = document.getElementById("program-type").value
+    const selectedParts = Array.from(document.getElementsByClassName("muscle--open")).map((el) => el.parentNode.dataset.muscleId || el.dataset.muscleId)
+    const idList = [...new Set(selectedParts)]
+    console.log(idList)
+    const response = await fetch(`/home/ProcessMuscleSubmit`, {
+        method: "post", body: JSON.stringify({ idList, intensity }), headers: { 'Content-Type': 'application/json' } })
+    console.log(response)
+}
 
 bodyWrapper.addEventListener('mouseover', handleMuscleActivation)
 bodyWrapper.addEventListener('mouseout', handleMuscleActivation)
 bodyWrapper.addEventListener('mousedown', handleMuscleActivation)
+mainForm.addEventListener('submit', handleSubmit)
 selectedMusclesWrapper.addEventListener('mousedown', handleUnselectMuscle)
 
-const handleSubmit = () => {
-    const selectedParts = Array.from(document.getElementsByClassName("muscle--open")).map((el) => el.parentNode.dataset.muscleId)
-    const selectedMuscleIds = [...new Set(selectedParts)]
-    console.log(selectedMuscleIds)
-}
+
 
 
 //$(function () {

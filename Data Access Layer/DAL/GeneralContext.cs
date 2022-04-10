@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using Gym.DAL.Models;
@@ -29,11 +28,10 @@ namespace Gym.DAL
             string connectionString = ConnectionConfiguring();
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(connectionString, b => b.MigrationsAssembly("Gym"));
+                optionsBuilder.UseSqlServer(connectionString);
             }
             optionsBuilder.LogTo(message => System.Diagnostics.Debug.WriteLine(message), Microsoft.Extensions.Logging.LogLevel.Information);
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder) //add here mediator table names
         {
             modelBuilder.Entity<UserDAL>()
@@ -68,7 +66,6 @@ namespace Gym.DAL
                 .UsingEntity(j => j.ToTable("ExerciseMuscleSecondary"));
 
         }
-
         protected string ConnectionConfiguring()
         {
             var builder = new ConfigurationBuilder();
@@ -78,12 +75,6 @@ namespace Gym.DAL
             var config = builder.Build();
             string connectionString = config.GetConnectionString("DefaultConnection");
             return connectionString;
-
-            //var optionBuilder = new DbContextOptionsBuilder<entitytestsdbContext>();
-            //var options = optionBuilder.UseSqlServer(connectionString).Options;
-
         }
-
-
     }
 }

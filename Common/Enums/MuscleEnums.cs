@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Gym.Common.Enum
+﻿namespace Gym.Common.Enum
 {
     public enum MuscleType
     {

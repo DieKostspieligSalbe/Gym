@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace Gym.DAL.Models
+{
     public class UserDAL
     {
         [Required]
