@@ -21,6 +21,7 @@ body {
     align-content: center;
 }
 
+
 .header {
     background-color: red;
     display: flex;
@@ -197,8 +198,72 @@ body {
     align-content: center;
 }
 
+.week-days {
+
+}
+
+.exercise-list {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+}
+.exercise {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #a9a9a9;
+    color: #222222;
+    padding: 5px 10px;
+}
+.week-days {
+    width: 100%;
+}
+.resting-days {
+    min-height: 100%;
+    padding: 10px;
+    display: flex;
+    align-content: center;
+    background: #eec2c2;
+}
 
 
+
+.resting-days p {
+    text-orientation: sideways;
+    writing-mode: vertical-rl;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.resting-days:last-child {
+    display: none;
+}
+.exercise-name {
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 5px;
+    text-align: left;
+    color: red;
+}
+.exercise-content {
+    margin-right: 10px;
+    text-align: right;
+}
+.exercise-description {
+    font-size: 10px;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.exercise-image {
+    height: 50px;
+    border: 1px solid black;
+}
 
 
 

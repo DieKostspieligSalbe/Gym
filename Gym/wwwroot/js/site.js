@@ -5,6 +5,7 @@
 const bodyWrapper = document.getElementById("body_wrapper")
 const selectedMusclesWrapper = document.getElementById("selected_muscles")
 const mainForm = document.getElementById("mainform")
+const programWrapper = document.getElementById("training-program")
 
 const handleMuscleActivation = (e) => {
   
@@ -25,6 +26,19 @@ const handleMuscleActivation = (e) => {
     Array.from(hovMuscleInstances).forEach(muscle => muscle.classList.toggle(e.type === 'mousedown' ? 'muscle--open' : 'muscle--hover'))
 }
 
+const generateTrainingDayMarkup = (trainingDay) => {
+    return trainingDay.Exercises.map((ex) => {
+        return `
+                <li class="exercise">
+                    <img class="exercise-image" src="${ex.ImageLink}" />
+                     <div class="exercise-content">
+                        <p class="exercise-name">${ex.Name}</p>
+                        <p class="exercise-description">${ex.Description}</p>
+                     </div>
+                </li>
+         `
+    })
+}
 const handleUnselectMuscle = (e) => {
     if (!e.target.dataset.removeMuscle) return
     e.target.parentNode.remove()
@@ -40,9 +54,27 @@ const handleSubmit = async (e) => {
     const selectedParts = Array.from(document.getElementsByClassName("muscle--open")).map((el) => el.parentNode.dataset.muscleId || el.dataset.muscleId)
     const idList = [...new Set(selectedParts)]
     console.log(idList)
-    const response = await fetch(`/home/ProcessMuscleSubmit`, {
-        method: "post", body: JSON.stringify({ idList, intensity }), headers: { 'Content-Type': 'application/json' } })
-    console.log(response)
+    try {
+        const response = await fetch(`/home/ProcessMuscleSubmit`, {
+            method: "post", body: JSON.stringify({ idList, intensity }), headers: { 'Content-Type': 'application/json' }
+        })
+        const data = await response.json()
+        console.log('Data is', data)
+        programWrapper.innerHTML = ''
+        data.trainingDayList.forEach((trainingDay, i) => {
+            console.log('Training day is ', trainingDay)
+            const exercisesMarkup = generateTrainingDayMarkup(trainingDay)
+            programWrapper.innerHTML += `
+            <ul class="exercise-list">
+               ${exercisesMarkup.join(' ')}
+            </ul>
+             <div class="resting-days"><p>${data.DaysBetweenMessage}</div> 
+            `
+        })
+    } catch (err) {
+        console.log(err)
+    }
+   
 }
 
 bodyWrapper.addEventListener('mouseover', handleMuscleActivation)
@@ -50,8 +82,6 @@ bodyWrapper.addEventListener('mouseout', handleMuscleActivation)
 bodyWrapper.addEventListener('mousedown', handleMuscleActivation)
 mainForm.addEventListener('submit', handleSubmit)
 selectedMusclesWrapper.addEventListener('mousedown', handleUnselectMuscle)
-
-
 
 
 //$(function () {
