@@ -37,6 +37,8 @@ namespace Gym
             services.AddDbContext<GeneralContext>(options =>
                 options.UseSqlServer(connection));
             services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<GetDataFromDAL>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

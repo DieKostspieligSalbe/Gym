@@ -12,9 +12,9 @@ namespace Gym.DAL
         private readonly GeneralContext _context;
         private readonly IMapper _mapper;
 
-        public GetDataFromDAL()
+        public GetDataFromDAL(GeneralContext context)
         {
-            _context = new();
+            _context = context;
             var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile<MapperProfileDAL>());
             _mapper = new Mapper(mapperConfig);
         }

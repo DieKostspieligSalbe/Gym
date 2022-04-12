@@ -8,53 +8,53 @@ namespace Gym.DAL.Repositories
 {
     public class UserRepository : IRepository<UserDAL>
     {
-        private GeneralContext context;
+        private GeneralContext _context;
         private bool disposed = false;
 
         public UserRepository(GeneralContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public void Delete(UserDAL user)
         {
-            UserDAL currentUser = context.Users.FirstOrDefault(x => x.Login == user.Login);
-            context.Users.Remove(user);
+            UserDAL currentUser = _context.Users.FirstOrDefault(x => x.Login == user.Login);
+            _context.Users.Remove(user);
         }
 
         public IEnumerable<UserDAL> GetAll()
         {
-            return context.Users.ToList();
+            return _context.Users.ToList();
         }
 
         public UserDAL GetByID(int id)
         {
-            return context.Users.FirstOrDefault(x => x.Id == id);
+            return _context.Users.FirstOrDefault(x => x.Id == id);
         }
 
         public UserDAL GetByLoginPassword(UserDAL user)
         {
-            return context.Users.FirstOrDefault(u => u.Login == user.Login && u.Password == user.Password);
+            return _context.Users.FirstOrDefault(u => u.Login == user.Login && u.Password == user.Password);
         }
 
         public UserDAL GetByLogin(string login)
         {
-            return context.Users.FirstOrDefault(u => u.Login == login);
+            return _context.Users.FirstOrDefault(u => u.Login == login);
         }
 
         public void Insert(UserDAL user)
         {
-            context.Users.Add(user);
+            _context.Users.Add(user);
         }
 
         public void Save()
         {
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
         public void Update(UserDAL user)
         {
-            context.Entry(user).State = EntityState.Modified;
+            _context.Entry(user).State = EntityState.Modified;
         }
 
         protected virtual void Dispose(bool disposing)
@@ -63,7 +63,7 @@ namespace Gym.DAL.Repositories
             {
                 if (disposing)
                 {
-                    context.Dispose();
+                    _context.Dispose();
                 }
             }
             this.disposed = true;
@@ -77,9 +77,9 @@ namespace Gym.DAL.Repositories
 
         public void FillDatabaseWithUsers()
         {
-            context.Users.Add(new UserDAL() { Login = "Admin", Password = "Password" });
-            context.Users.Add(new UserDAL() { Login = "User", Password = "Pass" });
-            context.SaveChanges();
+            _context.Users.Add(new UserDAL() { Login = "Admin", Password = "Password" });
+            _context.Users.Add(new UserDAL() { Login = "User", Password = "Pass" });
+            _context.SaveChanges();
         }
     }
 }

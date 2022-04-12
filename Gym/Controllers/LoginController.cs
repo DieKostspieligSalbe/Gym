@@ -18,13 +18,13 @@ namespace Gym.MVC.Controllers
     public class LoginController : Controller
     {
         private UserRepository userRepository;
-        private GeneralContext context;
-        private readonly IMapper mapper;
+        private readonly GeneralContext _context;
+        private readonly IMapper _mapper;
         public LoginController(GeneralContext context, IMapper mapper)
         {
-            this.context = context;
+            _context = context;
             userRepository = new UserRepository(context);
-            this.mapper = mapper;
+            _mapper = mapper;
             //userRepository.FillDatabaseWithUsers();
         }
 
@@ -45,13 +45,13 @@ namespace Gym.MVC.Controllers
                 //    Login = user.Login,
                 //    Password = user.Password
                 //};
-                var userDAL = mapper.Map<UserDAL>(user);
+                var userDAL = _mapper.Map<UserDAL>(user);
 
                 UserDAL foundUser = userRepository.GetByLoginPassword(userDAL);
                 if (foundUser != null)
                 {
                     await Authenticate(userDAL.Login);
-                    return RedirectToAction("UserList", mapper.Map<UserLoginViewModel>(userDAL));  //will lead to personal training plans
+                    return RedirectToAction("UserList", _mapper.Map<UserLoginViewModel>(userDAL));  //will lead to personal training plans
                 }
                 ModelState.AddModelError("", "Incorrect login or password");
             }
@@ -69,7 +69,7 @@ namespace Gym.MVC.Controllers
         [Route("ProcessUserCreation")]
         public IActionResult ProcessUserCreation([FromForm] UserLoginViewModel user)
         {       
-            var userDAL = mapper.Map<UserDAL>(user);
+            var userDAL = _mapper.Map<UserDAL>(user);
             userRepository.Insert(userDAL);
             userRepository.Save();
             return RedirectToAction("Index");
@@ -88,7 +88,7 @@ namespace Gym.MVC.Controllers
         [Route("Delete")]
         public IActionResult Delete(UserLoginViewModel user)
         {
-            var userDAL = mapper.Map<UserDAL>(user);
+            var userDAL = _mapper.Map<UserDAL>(user);
             userRepository.Delete(userDAL);
             userRepository.Save();
             return RedirectToAction("UserList");
