@@ -66,6 +66,7 @@ const handleSubmit = async (e) => {
             const exercisesMarkup = generateTrainingDayMarkup(trainingDay)
             programWrapper.innerHTML += `
             <ul class="exercise-list">
+               <p class="training-day-name">${trainingDay.DayName}</p>
                ${exercisesMarkup.join(' ')}
             </ul>
              <div class="resting-days"><p>${data.DaysBetweenMessage}</div> 

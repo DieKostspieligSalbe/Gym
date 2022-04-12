@@ -9,10 +9,9 @@ using System.Linq;
 
 namespace Gym.BL
 {
-    public class TrainingProgramBuilder
+    public class TrainingProgramBuilder //mapper, method args, similar functions into one maybe with local sub-functions inside?
     {
         private List<MuscleBL> MuscleListToWork;
-        //private List<ExerciseBL> ResultingExercises;
 
         private List<ExerciseBL> DbExercises;
         private List<MuscleBL> DbMuscles;
@@ -26,10 +25,9 @@ namespace Gym.BL
             DbExercises = dataDAL.GetExercises();
             DbMuscles = dataDAL.GetMuscles();
             DbEquipment = dataDAL.GetEquipment();
-            MuscleListToWork = new();//questionable
-            //ResultingExercises = new();
+            MuscleListToWork = new();
 
-            var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile<MapperProfileBL>()); //is it legit?
+            var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile<MapperProfileBL>()); // ASK: is it legit
             _mapper = new Mapper(mapperConfig);
         }
 
@@ -42,7 +40,7 @@ namespace Gym.BL
                 if (muscleBL is null)
                 {
                     success = false;
-                    return new TrainingProgramDisplayPR(); //change to return resulting exercises later
+                    return new TrainingProgramDisplayPR(); 
                 }
                 else
                 {
@@ -74,27 +72,34 @@ namespace Gym.BL
         private TrainingProgramDisplayPR FullBodySplit()
         {
             int exerciseCount = 10;
-            List<ExerciseBL> fullBodySplitExercises = new();
+            List<ExerciseBL> dayOneExercises = new();
+            List<ExerciseBL> dayTwoExercises = new();
             
-            fullBodySplitExercises = GetMinimumCompoundList(exerciseCount, MuscleListToWork); //adds minimum compound exercises           
-            fullBodySplitExercises = GetExercisesForMusclesWithoutPrimary(exerciseCount, fullBodySplitExercises, MuscleListToWork); //adds primary exercises to muscles that don't have them
+            dayOneExercises = GetMinimumCompoundList(exerciseCount, MuscleListToWork, exercisesToChooseFrom: DbExercises); //adds minimum compound exercises           
+            dayOneExercises = GetExercisesForMusclesWithoutPrimary(exerciseCount, MuscleListToWork, currentExercises: dayOneExercises, exercisesToChooseFrom: DbExercises); //adds primary exercises to muscles that don't have them
+            List<ExerciseBL> otherExercises = DbExercises.Except(dayOneExercises).ToList();
+            dayTwoExercises = GetMinimumCompoundList(exerciseCount, MuscleListToWork, exercisesToChooseFrom: otherExercises);
+            dayTwoExercises = GetExercisesForMusclesWithoutPrimary(exerciseCount, MuscleListToWork, currentExercises: dayTwoExercises, exercisesToChooseFrom: otherExercises);
 
-            List<ExercisePR> mappedFullBodyExercises = _mapper.Map<List<ExerciseBL>, List<ExercisePR>>(fullBodySplitExercises);
-            TrainingDayPR fullBodyDay = new() { DayName = "Full Body Day", Exercises = mappedFullBodyExercises };
+            List<ExercisePR> mappedDayOne = _mapper.Map<List<ExerciseBL>, List<ExercisePR>>(dayOneExercises);
+            List<ExercisePR> mappedDayTwo = _mapper.Map<List<ExerciseBL>, List<ExercisePR>>(dayTwoExercises);
+            TrainingDayPR trainingDayOne = new() { DayName = "Full Body Day", Exercises = mappedDayOne };
+            TrainingDayPR trainingDayTwo = new() { DayName = "Full Body Day", Exercises = mappedDayTwo };
+
             List<TrainingDayPR> trainingDayList = new();
-            for (int i = 0; i < 3; i++)
-            {
-                trainingDayList.Add(fullBodyDay);
-            }
+            trainingDayList.Add(trainingDayOne);
+            trainingDayList.Add(trainingDayTwo);
+            trainingDayList.Add(trainingDayOne);
+
             TrainingProgramDisplayPR fullBodyProgram = new() { trainingDayList = trainingDayList, DaysBetweenMessage = "2-4 days in-between" };
-            return fullBodyProgram;
+            return fullBodyProgram; 
         }
 
         private TrainingProgramDisplayPR UpperLowerSplit()
         {           
             List<MuscleBL> upperMuscles = MuscleListToWork.FindAll(m => m.BodySectionType == BodySectionType.Upper);
             List<MuscleBL> lowerMuscles = MuscleListToWork.FindAll(m => m.BodySectionType == BodySectionType.Lower);
-            int exerciseCount = upperMuscles.Count == 0 || lowerMuscles.Count == 0 ? 20 : 10;
+            int exerciseCount = upperMuscles.Count == 0 || lowerMuscles.Count == 0 ? 15 : 10;
 
             TrainingDayPR dayOne;
             TrainingDayPR dayTwo;
@@ -104,8 +109,13 @@ namespace Gym.BL
             if (upperMuscles.Count == 0 || lowerMuscles.Count == 0)
             {
                 List<MuscleBL> musclesToSend = upperMuscles.Count == 0 ? lowerMuscles : upperMuscles;
-                List<ExerciseBL> upperLowerSplitExercises = GetMinimumCompoundList(exerciseCount, musclesToSend);
-                upperLowerSplitExercises = GetExercisesForMusclesWithoutPrimary(exerciseCount, upperLowerSplitExercises, musclesToSend);
+                List<ExerciseBL> upperLowerSplitExercises = GetMinimumCompoundList(exerciseCount, musclesToSend, DbExercises);
+                upperLowerSplitExercises = GetExercisesForMusclesWithoutPrimary(exerciseCount, musclesToSend, upperLowerSplitExercises, DbExercises);
+
+                if (upperLowerSplitExercises.Count < exerciseCount)
+                {
+                    upperLowerSplitExercises = GetIsolated(exerciseCount, musclesToSend, upperLowerSplitExercises, DbExercises);
+                }
                 List <ExercisePR> mappedUpperLowerSplitExercises = _mapper.Map<List<ExerciseBL>, List<ExercisePR>>(upperLowerSplitExercises);
 
                 dayOne = new() { DayName = upperMuscles.Count == 0 ? "Lower Day" : "Upper Day", Exercises = mappedUpperLowerSplitExercises };
@@ -116,12 +126,22 @@ namespace Gym.BL
             }
             else
             {
-                List<ExerciseBL> upperExercises = GetMinimumCompoundList(exerciseCount, upperMuscles);
-                List<ExerciseBL> lowerExercises = GetMinimumCompoundList(exerciseCount, lowerMuscles);        
-                upperExercises = GetExercisesForMusclesWithoutPrimary(exerciseCount, upperExercises, upperMuscles);
-                lowerExercises = GetExercisesForMusclesWithoutPrimary(exerciseCount, lowerExercises, lowerMuscles);
+                List<ExerciseBL> upperExercises = GetMinimumCompoundList(exerciseCount, upperMuscles, DbExercises);
+                List<ExerciseBL> lowerExercises = GetMinimumCompoundList(exerciseCount, lowerMuscles, DbExercises);        
+                upperExercises = GetExercisesForMusclesWithoutPrimary(exerciseCount, upperMuscles, upperExercises, DbExercises);
+                lowerExercises = GetExercisesForMusclesWithoutPrimary(exerciseCount, lowerMuscles, lowerExercises, DbExercises);
+                if (upperExercises.Count < exerciseCount)
+                {
+                    upperExercises = GetIsolated(exerciseCount, upperMuscles, upperExercises, DbExercises);
+                }
+                if (lowerExercises.Count < exerciseCount)
+                {
+                    lowerExercises = GetIsolated(exerciseCount, lowerMuscles, lowerExercises, DbExercises);
+                }
+
                 List<ExercisePR> mappedUpperExercises = _mapper.Map<List<ExerciseBL>, List<ExercisePR>>(upperExercises);
                 List<ExercisePR> mappedLowerExercises = _mapper.Map<List<ExerciseBL>, List<ExercisePR>>(lowerExercises);
+
 
                 if (upperExercises.Count >= lowerMuscles.Count)
                 {
@@ -137,7 +157,7 @@ namespace Gym.BL
                 upperLowerTrainingDayList.Add(dayOne);
                 upperLowerTrainingDayList.Add(dayTwo);
                 upperLowerTrainingDayList.Add(dayOne);
-            } // TODO: add more exercises if count is less than max
+            }
             upperLowerSplitProgram = new() { trainingDayList = upperLowerTrainingDayList, DaysBetweenMessage = "1-2 days in-between" };
             return upperLowerSplitProgram;
         }
@@ -157,14 +177,14 @@ namespace Gym.BL
             return exercises;
         }
 
-        private List<ExerciseBL> GetMinimumCompoundList(int maxExerciseAmount, List<MuscleBL> musclesToWork)//this function is supposed to cover all the selected muscles with mostly compound exercises
+        private List<ExerciseBL> GetMinimumCompoundList(int maxExerciseAmount, List<MuscleBL> musclesToWork, List<ExerciseBL> exercisesToChooseFrom)//this function is supposed to cover all the selected muscles with mostly compound exercises
         {          
             List<ExerciseBL> compoundExercises = new();
             List<MuscleBL> musclesToRemove = new();
             List<MuscleBL> musclesUnprocessed = new();
             musclesUnprocessed.AddRange(musclesToWork);
             List<ExerciseBL> exercisesUnprocessed = new();
-            exercisesUnprocessed.AddRange(DbExercises); 
+            exercisesUnprocessed.AddRange(exercisesToChooseFrom); 
 
             //cardio check
             exercisesUnprocessed = HeartCheck(exercisesUnprocessed, musclesUnprocessed);
@@ -239,14 +259,14 @@ namespace Gym.BL
             return compoundExercises;
         }
 
-        private List<ExerciseBL> GetExercisesForMusclesWithoutPrimary(int maxExerciseAmount, List<ExerciseBL> preparedExerciseList, List<MuscleBL> musclesToWork) //this function looks for primary exercises for muscles that don't have primary yet
+        private List<ExerciseBL> GetExercisesForMusclesWithoutPrimary(int maxExerciseAmount, List<MuscleBL> musclesToWork, List<ExerciseBL> currentExercises, List<ExerciseBL> exercisesToChooseFrom) //this function looks for primary exercises for muscles that don't have primary yet
         {
-            int amountOfExercisesToAdd = maxExerciseAmount - preparedExerciseList.Count;
+            int amountOfExercisesToAdd = maxExerciseAmount - currentExercises.Count;
             if (amountOfExercisesToAdd == 0)
             {
-                return preparedExerciseList;
+                return currentExercises;
             }
-            List<ExerciseBL> exercisesUnprocessed = DbExercises.Except(preparedExerciseList).ToList();
+            List<ExerciseBL> exercisesUnprocessed = exercisesToChooseFrom.Except(currentExercises).ToList();
             List<MuscleBL> musclesWithoutPrimary = new();
             List<MuscleBL> primaryMusclesFromChosenExercises = new();
             List<ExerciseBL> resultExerciseList = new();
@@ -257,7 +277,7 @@ namespace Gym.BL
             MuscleBL loopedMuscle;
             List<MuscleBL> intersectionList = new();
 
-            foreach (var exercise in preparedExerciseList) 
+            foreach (var exercise in currentExercises) 
             {
                 primaryMusclesFromChosenExercises.AddRange(exercise.PrimaryMuscleList);
             }
@@ -269,7 +289,7 @@ namespace Gym.BL
             for (int i = 0; i < musclesWithoutPrimary.Count; i++)
             {
                 loopedMuscle = musclesWithoutPrimary[i];
-                foundExercise = exercisesUnprocessed.FirstOrDefault(e => e.PrimaryMuscleList.Contains(loopedMuscle)); //nullcheck
+                foundExercise = exercisesUnprocessed.FirstOrDefault(e => e.PrimaryMuscleList.Contains(loopedMuscle)); 
                 if (foundExercise is not null)
                 {
                     intersectionList = foundExercise.PrimaryMuscleList.Intersect(musclesWithoutPrimary).ToList();
@@ -283,8 +303,36 @@ namespace Gym.BL
                     break;
                 }
             }
-            preparedExerciseList.AddRange(resultExerciseList);
-            return preparedExerciseList;
+            currentExercises.AddRange(resultExerciseList);
+            return currentExercises;
+        }
+
+        private List<ExerciseBL> GetIsolated(int maxExerciseAmount, List<MuscleBL> musclesToWork, List<ExerciseBL> currentExercises, List<ExerciseBL> exercisesToChooseFrom)
+        {
+            List<ExerciseBL> exercisesUnprocessed = exercisesToChooseFrom.Except(currentExercises).ToList();
+            List<MuscleBL> muscleList = new();
+            muscleList.AddRange(musclesToWork);
+
+            ExerciseBL? foundExercise;
+            MuscleBL loopedMuscle;
+
+            for (int i = 0; i < muscleList.Count; i++)
+            {
+                loopedMuscle = muscleList[i];
+                foundExercise = exercisesUnprocessed.FirstOrDefault(e => e.PrimaryMuscleList.Contains(loopedMuscle) && !e.IsCompound);
+                if (foundExercise is not null)
+                {
+                    currentExercises.Add(foundExercise);
+                    muscleList.Remove(loopedMuscle);
+                    exercisesUnprocessed.Remove(foundExercise);
+                    i--;
+                }
+                if (currentExercises.Count >= maxExerciseAmount)
+                {
+                    break;
+                }
+            }
+            return currentExercises;
         }
 
 
