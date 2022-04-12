@@ -29,12 +29,12 @@ const handleMuscleActivation = (e) => {
 const generateTrainingDayMarkup = (trainingDay) => {
     return trainingDay.Exercises.map((ex) => {
         return `
-                <li class="exercise">
-                    <img class="exercise-image" src="${ex.ImageLink}" />
+                <li class="exercise">           
                      <div class="exercise-content">
                         <p class="exercise-name">${ex.Name}</p>
                         <p class="exercise-description">${ex.Description}</p>
                      </div>
+                     <img class="exercise-image" src="${ex.ImageLink}" />
                 </li>
          `
     })

@@ -99,7 +99,7 @@ namespace Gym.BL
         {           
             List<MuscleBL> upperMuscles = MuscleListToWork.FindAll(m => m.BodySectionType == BodySectionType.Upper);
             List<MuscleBL> lowerMuscles = MuscleListToWork.FindAll(m => m.BodySectionType == BodySectionType.Lower);
-            int exerciseCount = upperMuscles.Count == 0 || lowerMuscles.Count == 0 ? 15 : 10;
+            int exerciseCount = 10; 
 
             TrainingDayPR dayOne;
             TrainingDayPR dayTwo;
@@ -109,20 +109,28 @@ namespace Gym.BL
             if (upperMuscles.Count == 0 || lowerMuscles.Count == 0)
             {
                 List<MuscleBL> musclesToSend = upperMuscles.Count == 0 ? lowerMuscles : upperMuscles;
-                List<ExerciseBL> upperLowerSplitExercises = GetMinimumCompoundList(exerciseCount, musclesToSend, DbExercises);
-                upperLowerSplitExercises = GetExercisesForMusclesWithoutPrimary(exerciseCount, musclesToSend, upperLowerSplitExercises, DbExercises);
-
-                if (upperLowerSplitExercises.Count < exerciseCount)
+                List<ExerciseBL> dayVariationOne = GetMinimumCompoundList(exerciseCount, musclesToSend, DbExercises);
+                dayVariationOne = GetExercisesForMusclesWithoutPrimary(exerciseCount, musclesToSend, dayVariationOne, DbExercises);
+                if (dayVariationOne.Count < exerciseCount)
                 {
-                    upperLowerSplitExercises = GetIsolated(exerciseCount, musclesToSend, upperLowerSplitExercises, DbExercises);
+                    dayVariationOne = GetIsolated(exerciseCount, musclesToSend, dayVariationOne, DbExercises);
                 }
-                List <ExercisePR> mappedUpperLowerSplitExercises = _mapper.Map<List<ExerciseBL>, List<ExercisePR>>(upperLowerSplitExercises);
 
-                dayOne = new() { DayName = upperMuscles.Count == 0 ? "Lower Day" : "Upper Day", Exercises = mappedUpperLowerSplitExercises };
-                for (int i = 0; i < 3; i++)
+                List<ExerciseBL> otherExercises = DbExercises.Except(dayVariationOne).ToList();
+                List<ExerciseBL> dayVariationTwo = GetMinimumCompoundList(exerciseCount, musclesToSend, otherExercises);             
+                dayVariationTwo = GetExercisesForMusclesWithoutPrimary(exerciseCount, musclesToSend, dayVariationTwo, otherExercises);
+                if (dayVariationTwo.Count < exerciseCount)
                 {
-                    upperLowerTrainingDayList.Add(dayOne);
-                }              
+                    dayVariationTwo = GetIsolated(exerciseCount, musclesToSend, dayVariationTwo, otherExercises);
+                }
+                List<ExercisePR> mappedVariationOne = _mapper.Map<List<ExerciseBL>, List<ExercisePR>>(dayVariationOne);
+                List<ExercisePR> mappedVariationTwo = _mapper.Map<List<ExerciseBL>, List<ExercisePR>>(dayVariationTwo);
+
+                dayOne = new() { DayName = upperMuscles.Count == 0 ? "Lower Day" : "Upper Day", Exercises = mappedVariationOne };
+                dayTwo = new() { DayName = upperMuscles.Count == 0 ? "Lower Day" : "Upper Day", Exercises = mappedVariationTwo };
+                upperLowerTrainingDayList.Add(dayOne);
+                upperLowerTrainingDayList.Add(dayTwo);
+                upperLowerTrainingDayList.Add(dayOne);
             }
             else
             {
@@ -335,6 +343,6 @@ namespace Gym.BL
             return currentExercises;
         }
 
-
+        //add GetWhatever function
 }
 }
