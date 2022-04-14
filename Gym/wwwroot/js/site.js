@@ -6,6 +6,8 @@ const bodyWrapper = document.getElementById("body_wrapper")
 const selectedMusclesWrapper = document.getElementById("selected_muscles")
 const mainForm = document.getElementById("mainform")
 const programWrapper = document.getElementById("training-program")
+const saveForm = document.getElementById("save-form")
+const saveResult = document.getElementById("program-save-state")
 
 const handleMuscleActivation = (e) => {
   
@@ -78,11 +80,49 @@ const handleSubmit = async (e) => {
    
 }
 
+const handleSaveSubmit = async (e) => {
+    e.preventDefault()
+    const intensity = document.getElementById("program-type").value
+    const selectedParts = Array.from(document.getElementsByClassName("muscle--open")).map((el) => el.parentNode.dataset.muscleId || el.dataset.muscleId)
+    const idList = [...new Set(selectedParts)]
+    const programName = document.getElementById("program-name").value
+    console.log('Program name is', programName)
+    const programCheckbox = document.getElementById("program-checkbox")
+    let checkboxState = false
+    if (programCheckbox.checked) {
+        checkboxState = true
+    } else { checkboxState = false }
+    console.log(checkboxState)
+    var model = new Object();
+    model.IdList = idList
+    model.Intensity = intensity
+    model.Name = programName
+    model.IsPublic = checkboxState
+    try {
+        const response = await fetch(`/home/SaveProgram`, { //add descr
+            method: "post", body: JSON.stringify(model), headers: { 'Content-Type': 'application/json'}
+        })
+        const data = await response.json()
+        console.log('Data is', data)
+        let saveResult = ""
+        if (data === true) {
+            saveResult = "was saved"
+        }
+        else {saveResult = "didn't manage to save :("}
+        saveResult.innerHTML += `
+        <p class="save-result-label">Your program ${programName} ${saveResult}</p>
+        `
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 bodyWrapper.addEventListener('mouseover', handleMuscleActivation)
 bodyWrapper.addEventListener('mouseout', handleMuscleActivation)
 bodyWrapper.addEventListener('mousedown', handleMuscleActivation)
 mainForm.addEventListener('submit', handleSubmit)
 selectedMusclesWrapper.addEventListener('mousedown', handleUnselectMuscle)
+saveForm.addEventListener('submit', handleSaveSubmit)
 
 
 //$(function () {

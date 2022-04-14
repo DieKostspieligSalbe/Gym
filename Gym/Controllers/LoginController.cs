@@ -40,18 +40,18 @@ namespace Gym.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                //UserDAL newUser = new UserDAL 
-                //{ 
-                //    Login = user.Login,
-                //    Password = user.Password
-                //};
-                var userDAL = _mapper.Map<UserDAL>(user);
+                UserDAL newUser = new UserDAL
+                {
+                    Login = user.Login,
+                    Password = user.Password
+                };
+                // var userDAL = _mapper.Map<UserDAL>(user);
 
-                UserDAL foundUser = userRepository.GetByLoginPassword(userDAL);
+                UserDAL foundUser = userRepository.GetByLoginPassword(newUser);
                 if (foundUser != null)
                 {
-                    await Authenticate(userDAL.Login);
-                    return RedirectToAction("UserList", _mapper.Map<UserLoginViewModel>(userDAL));  //will lead to personal training plans
+                    await Authenticate(newUser.Login);
+                    return RedirectToAction("UserList", _mapper.Map<UserLoginViewModel>(newUser));  //will lead to personal training plans
                 }
                 ModelState.AddModelError("", "Incorrect login or password");
             }
@@ -68,9 +68,14 @@ namespace Gym.MVC.Controllers
         [HttpPost]
         [Route("ProcessUserCreation")]
         public IActionResult ProcessUserCreation([FromForm] UserLoginViewModel user)
-        {       
-            var userDAL = _mapper.Map<UserDAL>(user);
-            userRepository.Insert(userDAL);
+        {
+            //var userDAL = _mapper.Map<UserDAL>(user);
+            UserDAL newUser = new UserDAL
+            {
+                Login = user.Login,
+                Password = user.Password
+            };
+            userRepository.Insert(newUser);
             userRepository.Save();
             return RedirectToAction("Index");
         }

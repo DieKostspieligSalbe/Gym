@@ -15,6 +15,8 @@ namespace Gym.BL.Mapping
         {
             CreateMap<ExerciseBL, ExercisePR>().ReverseMap();
             CreateMap<MuscleBL, MusclePR>().ReverseMap();
+            CreateMap<ExerciseDAL, ExerciseBL>().ReverseMap(); //remove from here
+            CreateMap<MuscleDAL, MuscleBL>().ReverseMap();
             CreateMap<EquipBL, EquipPR>().ReverseMap();
         }
     }

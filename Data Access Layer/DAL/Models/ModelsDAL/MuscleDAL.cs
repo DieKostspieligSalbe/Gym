@@ -6,8 +6,7 @@ namespace Gym.DAL.Models
 {
     public class MuscleDAL
     {
-        [Required]
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [Required]
         public string Name { get; set; }
         public MuscleType MuscleType { get; set; }

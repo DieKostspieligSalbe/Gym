@@ -74,12 +74,5 @@ namespace Gym.DAL.Repositories
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-        public void FillDatabaseWithUsers()
-        {
-            _context.Users.Add(new UserDAL() { Login = "Admin", Password = "Password" });
-            _context.Users.Add(new UserDAL() { Login = "User", Password = "Pass" });
-            _context.SaveChanges();
-        }
     }
 }

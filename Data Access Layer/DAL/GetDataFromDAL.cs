@@ -31,11 +31,21 @@ namespace Gym.DAL
             List<ExerciseBL> exMappedList = _mapper.Map<List<ExerciseDAL>, List<ExerciseBL>>(exUnmappedList);
             return exMappedList;
         }
+        public List<ExerciseDAL> GetExercisesDAL()
+        {
+            List<ExerciseDAL> exList = _context.Exercises.Include(e => e.PrimaryMuscleList).Include(e => e.SecondaryMuscleList).Include(e => e.EquipList).ToList();
+            return exList;
+        }
         public List<MuscleBL> GetMuscles()
         {
             List<MuscleDAL> muscleUnmappedList = _context.Muscles.Include(m => m.PrimaryExList).Include(m => m.SecondaryExList).ToList();
             List<MuscleBL> muscleMappedList = _mapper.Map<List<MuscleDAL>, List<MuscleBL>>(muscleUnmappedList);
             return muscleMappedList;
+        }
+        public List<MuscleDAL> GetMusclesDAL()
+        {
+            List<MuscleDAL> muscleList = _context.Muscles.Include(m => m.PrimaryExList).Include(m => m.SecondaryExList).ToList();
+            return muscleList;
         }
 
     }

@@ -5,9 +5,8 @@ namespace Gym.DAL.Models
 {
     public class TrainingProgramDAL
     {
-        [Required]
-        public int Id { get; set; }
-        public int Name { get; set; }
+        public int? Id { get; set; }
+        public string Name { get; set; }
         public List<UserDAL> Users { get; set; } 
         public List<MuscleDAL> MuscleList { get; set; }
         public List<ExerciseDAL> ExerciseList { get; set; } 

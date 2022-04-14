@@ -2,7 +2,7 @@
 
 namespace Gym.MVC.Models
 {
-    public class MuscleSubmitModel
+    public class MuscleSubmitViewModel
     {
         public string[] IdList { get; set; }
         public string Intensity { get; set; }

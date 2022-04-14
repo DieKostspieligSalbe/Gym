@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Gym.BL.Mapping;
 using Gym.BL.Models;
+using Gym.BL.Models.ModelsView;
 using Gym.Common.Enum;
 using Gym.DAL;
 using Gym.DAL.Models;
@@ -18,23 +19,28 @@ namespace Gym.BL
         private List<MuscleBL> DbMuscles;
         private List<EquipBL> DbEquipment;
 
+        private List<MuscleDAL> DbMusclesDAL;
+        private List<ExerciseDAL> DbExercisesDAL;
+
         private readonly IMapper _mapper;
 
-        public TrainingProgramBuilder(GetDataFromDAL dataDAL, IMapper mapper)//mapper
+        public TrainingProgramBuilder(GetDataFromDAL dataDAL)//mapper
         {
             DbExercises = dataDAL.GetExercises();
             DbMuscles = dataDAL.GetMuscles();
             DbEquipment = dataDAL.GetEquipment();
+            DbMusclesDAL = dataDAL.GetMusclesDAL();
+            DbExercisesDAL = dataDAL.GetExercisesDAL();
             MuscleListToWork = new();
 
             var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile<MapperProfileBL>());
             _mapper = mapperConfig.CreateMapper();
         }
 
-        public TrainingProgramDisplayPR Calculate(int[] idList, int intensity, out bool success)
+        public TrainingProgramDisplayPR Calculate(MuscleViewModel muscleModel, out bool success)
         {
             MuscleBL? muscleBL;
-            foreach (int id in idList)
+            foreach (int id in muscleModel.IdList)
             {
                 muscleBL = DbMuscles.FirstOrDefault(m => (int)m.MuscleType == id);
                 if (muscleBL is null)
@@ -49,7 +55,7 @@ namespace Gym.BL
             }
             TrainingProgramDisplayPR trainingProgram = new();
 
-            switch (intensity)
+            switch (muscleModel.Intensity)
             {
                 case 1:
                     trainingProgram = FullBodySplit();
@@ -67,6 +73,26 @@ namespace Gym.BL
             success = true;
             return trainingProgram;
             
+        }
+
+        public TrainingProgramDAL GetProgramDAL(TrainingProgramViewModel model) //check it really well
+        {
+            TrainingProgramDisplayPR programPR = Calculate(model.MuscleModel, out bool success);
+            List<MuscleDAL> muscleListDAL = new();
+            MuscleListToWork.ForEach(m => muscleListDAL.Add(DbMusclesDAL.FirstOrDefault(dbm => dbm.Name == m.Name)));
+
+            List<ExercisePR> exerciseListPR = new();
+            programPR.trainingDayList.ForEach(x => exerciseListPR.AddRange(x.Exercises));
+            exerciseListPR.Distinct();
+            List<ExerciseDAL> exerciseListDAL = new();
+            exerciseListPR.ForEach(ex => exerciseListDAL.Add(DbExercisesDAL.FirstOrDefault(dbex => dbex.Name == ex.Name))); //eh perhaps do something
+
+            TrainingProgramDAL programDAL = new();
+            programDAL.MuscleList = muscleListDAL;
+            programDAL.ExerciseList = exerciseListDAL;
+            programDAL.Intensity = model.MuscleModel.Intensity;
+            return programDAL;
+
         }
 
         private TrainingProgramDisplayPR FullBodySplit()
@@ -182,9 +208,9 @@ namespace Gym.BL
 
             if (pushMuscles.Count > 0)
             {
-                dayOne = GetMinimumCompoundList(maxExerciseCount, pushMuscles, DbExercises);
-                dayOne = GetExercisesForMusclesWithoutPrimary(maxExerciseCount, pushMuscles, dayOne, DbExercises);
-                dayOne = GetIsolated(maxExerciseCount, pushMuscles, dayOne, DbExercises);
+                dayOne = GetMinimumCompoundList(pushMuscles, DbExercises);
+                dayOne = GetExercisesForMusclesWithoutPrimary(pushMuscles, dayOne, DbExercises);
+                dayOne = GetIsolated(pushMuscles, dayOne, DbExercises);
             }
 
         }
@@ -264,7 +290,7 @@ namespace Gym.BL
                     if (intersectionList.Count > 0)
                     {
                         compoundExercises.Add(foundExercise);
-                        if (compoundExercises.Count >= maxExerciseAmount)
+                        if (compoundExercises.Count >= maxExerciseCount)
                         {
                             return compoundExercises;
                         }
