@@ -11,15 +11,13 @@
   <div class="card-body">
     <h5 class="card-title" style="font-weight: 700;">@item.Name</h5>
     <p class="card-text">@item.Description</p>
-    <ul>
         @foreach (var subitem in item.ExercisesList ) {
            @foreach (var evenDeeperItem in subitem.PrimaryMuscleList)
            {
-                <li style="font-weight: 500; color: red;">@evenDeeperItem.Name</li>
+                <img style="height: 100px; width: 100px;" src="@evenDeeperItem.ImageLink">
            }
                         
         }
-    </ul>
   </div>
 </div>
  

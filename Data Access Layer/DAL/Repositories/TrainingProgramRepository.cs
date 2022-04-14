@@ -48,7 +48,7 @@ namespace Gym.DAL.DAL.Repositories
 
         public void Update(TrainingProgramDAL entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            _context.Update(entity);//Entry(entity).State = EntityState.Modified;
         }
 
         protected virtual void Dispose(bool disposing)
