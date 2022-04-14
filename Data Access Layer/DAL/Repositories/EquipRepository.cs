@@ -1,4 +1,5 @@
 ﻿using Gym.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace Gym.DAL.DAL.Repositories
 
         public IEnumerable<EquipDAL> GetAll()
         {
-            return _context.Equipment.ToList();
+            return _context.Equipment.Include(eq => eq.ExercisesList).ThenInclude(ex => ex.PrimaryMuscleList).ToList();
         }
 
         public void Insert(EquipDAL entity)
