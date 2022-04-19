@@ -57,7 +57,7 @@ namespace Gym.Controllers
                 string json = JsonConvert.SerializeObject(result); 
                 return Ok(json);
             }
-            else return BadRequest("The data sent was incorrect");
+            else return BadRequest("What did you expect?");
 
         }
 

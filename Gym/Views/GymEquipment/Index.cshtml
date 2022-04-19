@@ -9,8 +9,15 @@
  <div class="card" style="width: 18rem;">
   <img class="card-img-top" src="@item.ImageLink" alt="@item.Name">
   <div class="card-body">
-    <h5 class="card-title">@item.Name</h5>
+    <h5 class="card-title" style="font-weight: 700;">@item.Name</h5>
     <p class="card-text">@item.Description</p>
+        @foreach (var subitem in item.ExercisesList ) {
+           @foreach (var evenDeeperItem in subitem.PrimaryMuscleList)
+           {
+                <img style="height: 100px; width: 100px;" src="@evenDeeperItem.ImageLink">
+           }
+                        
+        }
   </div>
 </div>
  

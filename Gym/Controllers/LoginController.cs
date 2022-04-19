@@ -51,7 +51,7 @@ namespace Gym.MVC.Controllers
                 if (foundUser != null)
                 {
                     await Authenticate(newUser.Login);
-                    return RedirectToAction("UserList", _mapper.Map<UserLoginViewModel>(newUser));  //will lead to personal training plans
+                    return RedirectToAction("UserList", user);  //will lead to personal training plans
                 }
                 ModelState.AddModelError("", "Incorrect login or password");
             }
@@ -93,8 +93,12 @@ namespace Gym.MVC.Controllers
         [Route("Delete")]
         public IActionResult Delete(UserLoginViewModel user)
         {
-            var userDAL = _mapper.Map<UserDAL>(user);
-            userRepository.Delete(userDAL);
+            UserDAL newUser = new UserDAL
+            {
+                Login = user.Login,
+                Password = user.Password
+            };
+            userRepository.Delete(newUser);
             userRepository.Save();
             return RedirectToAction("UserList");
         }

@@ -19,8 +19,8 @@ namespace Gym.MVC.Controllers
         }
         public IActionResult Index()
         {
-
-            return View(_equipRepository.GetAll());
+            var list = _equipRepository.GetAll();
+            return View(list);
         }
     }
 }
