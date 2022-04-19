@@ -5,7 +5,12 @@ namespace Gym.DAL
 {
     public class DbFiller //this fills the database with everything needed
     {
-        private GeneralContext _context;
+        private readonly GeneralContext _context;
+
+        public DbFiller(GeneralContext context)
+        {
+            _context = context;
+        }
         public void FillDatabase() 
         {
             //define muscles

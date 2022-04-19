@@ -75,7 +75,7 @@ namespace Gym.BL
             
         }
 
-        public TrainingProgramDAL GetProgramDAL(TrainingProgramViewModel model) //check it really well
+        public TrainingProgramDAL GetProgramDAL(TrainingProgramViewModel model, out TrainingProgramDAL programForProperties) //check it really well
         {
             TrainingProgramDisplayPR programPR = Calculate(model.MuscleModel, out bool success);
             List<MuscleDAL> muscleListDAL = new();
@@ -87,9 +87,10 @@ namespace Gym.BL
             List<ExerciseDAL> exerciseListDAL = new();
             exerciseListPR.ForEach(ex => exerciseListDAL.Add(DbExercisesDAL.FirstOrDefault(dbex => dbex.Name == ex.Name))); //eh perhaps do something
 
+            programForProperties = new();
             TrainingProgramDAL programDAL = new();
-            programDAL.MuscleList = muscleListDAL;
-            programDAL.ExerciseList = exerciseListDAL;
+            programForProperties.MuscleList = muscleListDAL;
+            programForProperties.ExerciseList = exerciseListDAL;
             programDAL.Intensity = model.MuscleModel.Intensity;
             return programDAL;
 

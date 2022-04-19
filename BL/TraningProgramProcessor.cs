@@ -26,15 +26,14 @@ namespace Gym.BL
         public bool PutDataIntoDb(TrainingProgramViewModel model)
         {
             TrainingProgramBuilder builder = new(new GetDataFromDAL(new GeneralContext())); //fix!
-            TrainingProgramDAL program = builder.GetProgramDAL(model);
+            TrainingProgramDAL program = builder.GetProgramDAL(model, out TrainingProgramDAL programForProperties);
             program.Name = model.Name;
             //program.Description = model.Description; //add creator and stuff
             program.IsPublic = model.IsPublic; //use mapper!!
             program.Id = null;
             try
             {
-                _repository.Insert(program);
-                _repository.Save();
+                _repository.InsertWithLists(program, programForProperties);
                 return true;
             }
             catch (Exception ex)

@@ -41,6 +41,17 @@ namespace Gym.DAL.DAL.Repositories
             _context.TrainingPrograms.Add(entity);
         }
 
+        public void InsertWithLists(TrainingProgramDAL entity, TrainingProgramDAL entityForProperties)
+        {
+            entity.MuscleList = new();
+            entity.ExerciseList = new();
+            _context.TrainingPrograms.Add(entity);
+            _context.SaveChanges();
+            entity.MuscleList.AddRange(entityForProperties.MuscleList);
+            entity.ExerciseList.AddRange(entityForProperties.ExerciseList);
+            _context.SaveChanges();
+        }
+
         public void Save()
         {
             _context.SaveChanges();
