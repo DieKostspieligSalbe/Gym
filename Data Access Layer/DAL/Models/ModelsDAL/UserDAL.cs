@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DAL.DAL
+namespace Gym.DAL.Models
 {
     public class UserDAL
     {
@@ -12,7 +12,7 @@ namespace DAL.DAL
         [Required]
         public string Password { get; set; }
 
-        public List<TrainingProgramDAL> ProgramList { get; set; } = new();
+        public List<TrainingProgramDAL> ProgramList { get; set; } 
 
     }
 

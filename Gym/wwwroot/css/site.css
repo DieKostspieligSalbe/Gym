@@ -1,24 +1,54 @@
 ﻿* {
-    font-family: "Roboto", sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 html,
 body {
     height: 100%;
 }
+
+button {
+    font-weight: 800;
+}
+
+
 a {
     color: white !important;
 }
 
-body {
+
+
+svg {
+    margin: 20px;
+}
+
+
+body {  
     margin: 0;
     overflow-x: hidden;
     width: 100%;
     /*padding: 0 5%;*/
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-content: center;
+
+}
+
+select {
+    background-color: white;
+    padding: 6px;
+    color: #686161;
+    font-weight: 700;
+    border: solid 1px;
+    border-radius: 20px;
+    margin-left: 25px;
+}
+
+input {
+    border: 1px solid;
+    border-radius: 20px;
 }
 
 .header {
@@ -69,6 +99,7 @@ body {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-around;
+    margin-top: 50px;
 }
 
 .home_vertical_left, .home_vertical_right {
@@ -77,6 +108,11 @@ body {
     flex-wrap: nowrap;
     justify-content: space-between;
     margin: 20px;
+}
+
+.home_vertical_left {
+    display: block;
+    max-width: 500px;
 }
 
 .muscle_img {
@@ -93,12 +129,13 @@ body {
 .home_main_container span {
     text-align: center;
     align-content: center;
-    font-size: 27px;
-    font-weight: 600;
+    font-size: 24px;
+    font-weight: 800;
     color: #3E3E3E;
     margin: 0px;
     margin-top: 50px;
     margin-bottom: 50px;
+
 }
 
 .home_main_container button {
@@ -144,7 +181,8 @@ body {
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
-    align-content: flex-start;
+    align-content: center;
+    align-items: center;
 }
 
 .selected-div {
@@ -157,6 +195,7 @@ body {
     padding: 5px;
     padding-left: 10px;
     font-size: 20px;
+    font-weight: 600;
 }
 
 .close {
@@ -179,6 +218,7 @@ body {
     flex-grow: 1;
     text-align: center;
     align-content: center;
+    margin-left: 20px;
 }
 
 .training_options {
@@ -197,15 +237,101 @@ body {
     align-content: center;
 }
 
+.week-days {
+
+}
+
+.exercise-list {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+    border-radius: 20px;
+}
+.exercise {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ededed;
+    color: #383838;
+    padding: 5px 10px;
+    border-bottom: 1px solid #f1f1f1;
+    border-radius: 10px;
+}
+.week-days {
+    width: 100%;
+}
+.resting-days {
+    min-height: 100%;
+    padding: 10px;
+    display: flex;
+    align-content: center;
+    background: gainsboro;
+    border-radius: 20px;
+}
 
 
+
+.resting-days p {
+    text-orientation: sideways;
+    writing-mode: vertical-rl;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ffffff
+}
+
+.resting-days:last-child {
+    display: none;
+}
+.exercise-name {
+    flex-grow: 1;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 5px;
+    text-align: start;
+    color: #ff0303;
+    letter-spacing: 0.02em;
+}
+.exercise-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-right: 10px;
+    text-align: right;
+}
+.exercise-description {
+    font-size: 10px;
+    margin-bottom: 0;
+    text-align: start;
+    line-height: 1.2em;
+    word-break: normal;
+}
+
+.exercise-image {
+    flex-grow: 0;
+    height: 50px;
+    align-self: center;
+}
+
+.training-day-name {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #4e4e4e;
+    border-bottom: 1px solid #bebebe;
+    border-radius: 20px;
+}
 
 
 
 
 
 .footer {
+    flex-grow: 0;
+    width: 100%;
+    height: 40px;
     background-color: red;
-    display: flex;
-    padding: 20px 40px;
+    margin-top: 100px;
 }

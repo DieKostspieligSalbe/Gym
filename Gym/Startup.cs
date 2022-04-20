@@ -1,5 +1,4 @@
-using DAL.DAL;
-using Gym.Services;
+using Gym.DAL;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,12 +31,14 @@ namespace Gym
                 {
                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Home/Index");
                });
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<GeneralContext>(options =>
                 options.UseSqlServer(connection));
             services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<GetDataFromDAL>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

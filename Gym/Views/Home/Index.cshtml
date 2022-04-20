@@ -1,9 +1,7 @@
-﻿@using DAL.DAL
+﻿@using Gym.DAL.Models
 @{
     ViewData["Title"] = "Home Page";
 }
-
-
 
 
 <div class="home_main_container">
@@ -28,56 +26,49 @@
         <div class="intensity">
             <!--Training intensity selection-->
             <span class="main_span">Select your preferred training split:</span>
-            <form>
-                <button>Full Body</button>
-                <button>Upper/Lower</button>
-                <button>Push/Pull/Leg</button>
+            <form id="mainform">
+                <select id="program-type" name="intensity">
+                    <option value="1">
+                        Full Body
+                    </option>
+                      <option value="2">
+                        Upper/Lower
+                    </option>
+                      <option value="3">
+                        Push/Pull/Leg
+                    </option>
+                </select>
+            <div class="submit">
+                <button type="submit">Submit</button>
+            </div>
             </form>
-        </div>
-
-        <div class="submit">
-            <button>Submit</button>
         </div>
 
 
         <div class="week">
             <span class="main_span">Your weekly training plan:</span>
-            <div class="week-days">
-                <div class="day-container"> 
+            <div id="training-program" class="week-days">
 
-                </div>
-                 <div class="day-container">
 
-                </div>
-                 <div class="day-container">
-
-                </div>
-                 <div class="day-container">
-
-                </div>
-                 <div class="day-container">
-
-                </div>
-                 <div class="holiday-container">
-
-                </div>
-                 <div class="holiday-container">
-
-                </div>
             </div>
         </div>
         
         <div class="training_options">
             <div><span class="main_span">Training program options:</span></div>
+            <form id="save-form">
             <div class="training_options_1">
                 <label>Program name:</label>
-                <input type="text"/>
-                <input type="checkbox" name="make_public" value="Make public"/>
+                <input type="text" id="program-name"/>
+                <input type="checkbox" id="program-checkbox" name="make_public" value="1"/>
                 <label for="make_public">Make public</label>
             </div>
-            <div class="training_options_2">     
-                <button>Save</button>
-            </div>    
+            <div class="submit">     
+                <button style="background-color: red">Save</button>
+            </div>  
+            </form>
+            <div id="program-save-state"></div>
         </div>
     </div>
 </div>
+
+

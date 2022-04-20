@@ -1,5 +1,4 @@
-﻿using Gym.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
@@ -7,22 +6,25 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using DAL.DAL;
 using AutoMapper;
+using Gym.DAL.Repositories;
+using Gym.DAL;
+using Gym.MVC.Models;
+using Gym.DAL.Models;
 
-namespace Gym.Controllers
+namespace Gym.MVC.Controllers
 {
     [Route("[controller]")]
     public class LoginController : Controller
     {
         private UserRepository userRepository;
-        private GeneralContext context;
-        private readonly IMapper mapper;
+        private readonly GeneralContext _context;
+        private readonly IMapper _mapper;
         public LoginController(GeneralContext context, IMapper mapper)
         {
-            this.context = context;
+            _context = context;
             userRepository = new UserRepository(context);
-            this.mapper = mapper;
+            _mapper = mapper;
             //userRepository.FillDatabaseWithUsers();
         }
 
@@ -38,18 +40,18 @@ namespace Gym.Controllers
         {
             if (ModelState.IsValid)
             {
-                //UserDAL newUser = new UserDAL 
-                //{ 
-                //    Login = user.Login,
-                //    Password = user.Password
-                //};
-                var userDAL = mapper.Map<UserDAL>(user);
+                UserDAL newUser = new UserDAL
+                {
+                    Login = user.Login,
+                    Password = user.Password
+                };
+                // var userDAL = _mapper.Map<UserDAL>(user);
 
-                UserDAL foundUser = userRepository.GetByLoginPassword(userDAL);
+                UserDAL foundUser = userRepository.GetByLoginPassword(newUser);
                 if (foundUser != null)
                 {
-                    await Authenticate(userDAL.Login);
-                    return RedirectToAction("UserList", mapper.Map<UserLoginViewModel>(userDAL));  //will lead to personal training plans
+                    await Authenticate(newUser.Login);
+                    return RedirectToAction("UserList", user);  //will lead to personal training plans
                 }
                 ModelState.AddModelError("", "Incorrect login or password");
             }
@@ -66,9 +68,14 @@ namespace Gym.Controllers
         [HttpPost]
         [Route("ProcessUserCreation")]
         public IActionResult ProcessUserCreation([FromForm] UserLoginViewModel user)
-        {       
-            var userDAL = mapper.Map<UserDAL>(user);
-            userRepository.Insert(userDAL);
+        {
+            //var userDAL = _mapper.Map<UserDAL>(user);
+            UserDAL newUser = new UserDAL
+            {
+                Login = user.Login,
+                Password = user.Password
+            };
+            userRepository.Insert(newUser);
             userRepository.Save();
             return RedirectToAction("Index");
         }
@@ -86,8 +93,12 @@ namespace Gym.Controllers
         [Route("Delete")]
         public IActionResult Delete(UserLoginViewModel user)
         {
-            var userDAL = mapper.Map<UserDAL>(user);
-            userRepository.Delete(userDAL);
+            UserDAL newUser = new UserDAL
+            {
+                Login = user.Login,
+                Password = user.Password
+            };
+            userRepository.Delete(newUser);
             userRepository.Save();
             return RedirectToAction("UserList");
         }

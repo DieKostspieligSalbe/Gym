@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Gym.Common.Enum;
+using Gym.DAL.Models;
 
-namespace DAL.DAL
+namespace Gym.DAL
 {
     public class DbFiller //this fills the database with everything needed
     {
-        GeneralContext _context;
+        private readonly GeneralContext _context;
 
         public DbFiller(GeneralContext context)
         {
             _context = context;
         }
-
         public void FillDatabase() 
         {
             //define muscles
@@ -377,7 +373,7 @@ namespace DAL.DAL
             pecFlyEx.ImageLink = "https://i.ibb.co/8Nj9W9q/chest-fly.png";
             pecFlyEx.Description = "This exercise works your pecs.";
 
-            ExerciseDAL pushUp = new() { Name = "Push Up", IsEssential = true, IsCompound = true };
+            ExerciseDAL pushUp = new() { Name = "Push Up", IsEssential = false, IsCompound = true };
             pushUp.ImageLink = "https://i.ibb.co/Z1vwJLy/push-up.png";
             pushUp.Description = "This exercise works your pecs and triceps, also targeting your front delts and abs.";
 
@@ -457,7 +453,7 @@ namespace DAL.DAL
             legExtension.ImageLink = "https://i.ibb.co/k8ysZc0/leg-extension.png";
             legExtension.Description = "This exercise works your quads.";
 
-            ExerciseDAL legPressEx = new() { Name = "Leg Press", IsCompound = true, IsEssential = true };
+            ExerciseDAL legPressEx = new() { Name = "Leg Press", IsCompound = true, IsEssential = false };
             legPressEx.ImageLink = "https://i.ibb.co/Nm40rFx/leg-press.png";
             legPressEx.Description = "This alternative to squats also works nearly all your leg muscles.";
 
@@ -562,8 +558,7 @@ namespace DAL.DAL
             pullDown.SecondaryMuscleList.AddRange(new[] {infraspin, rearDelt, forearm, biceps });
             pullDown.EquipList.Add(pulldown);
 
-            chestPressEx.PrimaryMuscleList.AddRange(new[] { pecs, frontDelt });
-            chestPressEx.SecondaryMuscleList.Add(triceps);
+            chestPressEx.PrimaryMuscleList.AddRange(new[] { pecs, frontDelt, triceps });
             chestPressEx.EquipList.AddRange(new[] { bench, benchPressItem, dumbbell, barbell, chestPress, smith });
 
             dip.PrimaryMuscleList.AddRange(new[] { pecs, triceps });

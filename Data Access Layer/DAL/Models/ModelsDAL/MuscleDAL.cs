@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Gym.Common.Enum;
 
-namespace DAL.DAL
+namespace Gym.DAL.Models
 {
     public class MuscleDAL
     {
-        [Required]
-        public int Id { get; set; }
+        public int? Id { get; set; }
         [Required]
         public string Name { get; set; }
         public MuscleType MuscleType { get; set; }
@@ -15,15 +14,13 @@ namespace DAL.DAL
         public BodySectionType BodySectionType { get; set; }
         public BodyPartType BodyPartType { get; set; }
 
-        public List<ExerciseDAL> PrimaryExList { get; set; } = new();
-        public List<ExerciseDAL> SecondaryExList { get; set; } = new();
+        public List<ExerciseDAL> PrimaryExList { get; set; } 
+        public List<ExerciseDAL> SecondaryExList { get; set; }
 
-        public List<TrainingProgramDAL> InvolvedInPrograms { get; set; } = new();
+        public List<TrainingProgramDAL> InvolvedInPrograms { get; set; } 
 
         public string ImageLink { get; set; }
         [StringLength(2000)]
         public string Description { get; set; }
     }
-
-
 }

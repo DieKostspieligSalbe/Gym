@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gym", "Gym\Gym.csproj", "{3F32E155-0A5A-4396-A2C9-6BD276AD3F43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gym.MVC", "Gym\Gym.MVC.csproj", "{3F32E155-0A5A-4396-A2C9-6BD276AD3F43}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "Data Access Layer\DAL.csproj", "{DF10F9F4-7B3B-4A04-892A-C83CA870104E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gym.DAL", "Data Access Layer\Gym.DAL.csproj", "{DF10F9F4-7B3B-4A04-892A-C83CA870104E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{E5ADA4F0-7C99-4490-B743-322BFB5E8741}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gym.BL", "BL\Gym.BL.csproj", "{E5ADA4F0-7C99-4490-B743-322BFB5E8741}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym.Common", "Common\Gym.Common.csproj", "{6D227146-0BC8-4BF0-ACC5-3B9A193D2D6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{E5ADA4F0-7C99-4490-B743-322BFB5E8741}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5ADA4F0-7C99-4490-B743-322BFB5E8741}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5ADA4F0-7C99-4490-B743-322BFB5E8741}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D227146-0BC8-4BF0-ACC5-3B9A193D2D6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D227146-0BC8-4BF0-ACC5-3B9A193D2D6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D227146-0BC8-4BF0-ACC5-3B9A193D2D6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D227146-0BC8-4BF0-ACC5-3B9A193D2D6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

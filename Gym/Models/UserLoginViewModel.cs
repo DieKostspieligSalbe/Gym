@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Gym.Models
+namespace Gym.MVC.Models
 {
     public class UserLoginViewModel
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Gym.Models
+namespace Gym.MVC.Models
 {
     public class ErrorViewModel
     {
